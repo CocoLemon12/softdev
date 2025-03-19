@@ -1,0 +1,255 @@
+/* Header with back button + centered title */
+.orders-header {
+    position: relative; /* Allows absolutely positioning the back button inside */
+    text-align: center; /* Center the <h1> horizontally */
+    margin-bottom: 20px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.orders-header h1 {
+    display: inline-block; /* Ensures text-align:center truly centers it */
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Back button pinned to the left edge of .orders-header */
+.back-button {
+    position: absolute;
+    left: 0;                 /* Align with left edge of .orders-header container */
+    top: 50%;                /* Vertically center relative to .orders-header height */
+    transform: translateY(-50%);
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 60px;         /* Default size on screens below 1200px */
+    color: #5D2167;          /* Fallback color (gradient text needs background-clip) */
+    font-weight: 300;
+}
+
+.back-button:hover {
+    color: #5d2167d2;          /* Hover color */
+}
+
+/* Adjust the back button size at wider screens */
+@media (min-width: 1200px) {
+    .back-button {
+        margin-left: 120px;
+        font-size: 90px;
+    }
+    .order-actions{
+        padding-top: 60px;
+    }
+}
+@media (max-width: 844px) {
+    .product-image{
+        width: auto;
+        max-height: 300px;
+    }
+}
+
+
+
+/* =========================
+   Product Details Section
+========================= */
+.product {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.product p {
+    font-size: 20px;
+    font-weight: 500;
+    /* text-wrap is not a valid CSS property; use word-wrap or overflow-wrap if needed */
+    overflow-wrap: break-word;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.product-image {
+    display: block;
+    margin: 0 auto;
+    max-width: auto;
+    max-height: 550px;
+    border-radius: 10px;
+}
+
+/* Order Info Box (if used somewhere) */
+.order-info {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #460052;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+hr {
+    width: 80%;           /* Adjust width to a percentage or fixed value (e.g., 500px) */
+    height: 1px;          /* Adjust the thickness (height) */
+    border: none;         /* Remove default border */
+    background-color: #460052; /* Set the color to match your design */
+    margin: 20px auto;     /* Center the line and adjust the margin (space) around it */
+    margin-top: -30px;
+}
+
+/* =========================
+   Order Details Container (Bottom Section)
+========================= */
+.order-details {
+    margin: 20px auto;  /* Center horizontally with auto margins */
+    padding: 20px;
+    border: 2px solid #C30EFF;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    background-color: #fff;
+    max-width: 1100px;
+    width: 100%; /* Ensures it doesn't exceed the max-width */
+}
+
+/* Grid for Left Side Order Info */
+.order-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.order-info-grid .order-data {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    color: #333;
+}
+.order-info-grid .order-data strong {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Order Calculations (Right Side) */
+.order-calculations {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+}
+.order-calculations .order-data {
+    text-align: right;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+.order-calculations .calculation {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 16px;
+    color: #333;
+}
+.order-calculations .total-row {
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+/* Order Actions (Buttons) */
+.order-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+/* Style for the buttons */
+.order-action-button {
+    background-color: white;
+    color: #C30EFF;
+    border: 1px solid #C30EFF;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    max-height: 37px;
+    min-width: 154px;
+    padding: 5px;
+}
+
+.order-action-button:hover {
+    background-color: #C30EFF25;
+}
+
+.order-action-button:disabled {
+    background-color: #e0e0e0; /* Disabled button background */
+    color: #9e9e9e; /* Disabled button text */
+    border: 1px solid #e0e0e0; /* Border for disabled button */
+    cursor: not-allowed;
+    max-height: 37px;
+    min-width: 154px;
+    padding: 5px;
+
+}
+
+
+/* =========================
+   Responsive Adjustments
+========================= */
+@media (max-width: 1250px) {
+
+    .product-image {
+        max-width: 400px;
+    }
+    .content{
+        padding:20px;
+    }
+    hr{
+        margin: 20px auto;
+        width: 90%;
+    }
+
+}
+@media (max-width: 700px) {
+    .product {
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-image {
+        max-width: 100%;
+    }
+    .order-details {
+        grid-template-columns: 1fr;
+    }
+    .order-info-grid {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .order-calculations {
+        grid-template-columns: 1fr 1fr;
+    }
+    .order-calculations .order-data {
+        text-align: left;
+    }
+    .order-calculations .calculation {
+        margin-left: 0;
+    }
+    .orders-header h1 {
+        font-size: 20px;
+    }
+    .product p {
+        font-size: 15px;
+    }
+    .order-action-button {
+        font-size: 12px;
+    }
+}

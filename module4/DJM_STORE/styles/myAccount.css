@@ -1,0 +1,19 @@
+body {
+  padding-top: 10rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  margin-left: 3rem;
+  flex: 0.25;
+}
+.right-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  padding-right: 7rem;
+  background-color: transparent;
+}

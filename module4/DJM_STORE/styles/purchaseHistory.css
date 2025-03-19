@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+body {
+  padding-top: 10rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  margin-left: 3rem;
+  flex: 0.25;
+}
+.right-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  padding-right: 7rem;
+  background-color: transparent;
+}
+.right-content-sub {
+  background-color: rgb(254, 254, 254);
+  padding: 1rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.date-receive-container{
+  border-radius: 10px;
+  padding: .3rem 1rem;
+  border: 2px solid rgb(211, 38, 230);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.date-receive-css{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.parcel-delivered{
+  color: green;
+}
+.product-container{
+  display: flex;
+  padding: 0.7rem 0.3rem;
+}
+.product-name{
+  padding: .5rem 1rem;
+  height: 6.5rem;
+  align-content: center;
+  font-size: 1.3rem;
+  color: rgb(62, 61, 61);
+}
+.price-qty{
+  display: flex;
+  flex: 1;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0rem 1rem;
+}
+.buy-again-container{
+  padding-right: 1rem;
+  justify-content: end;
+  display: flex;
+  flex: 1;
+}
+.buy-again-button{
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  background-image: linear-gradient(to right, #ba43ce, #6900fd);
+  color: white;
+}
+
+.product-image{
+  height: 9rem;
+}
+
+.name-price-qty{
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.purchase-product-main{
+  margin-top: 2.5%;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+padding: 1.3rem;
+border-radius: .3rem;
+}
+.purchase-history{
+  color: #ba43ce;
+}

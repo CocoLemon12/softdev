@@ -1,0 +1,157 @@
+.logo {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;  /* Centers vertically */
+    height: auto; /* Adjust as needed */
+}
+
+.logo img {
+    width: 100px;
+    height: auto;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    color: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Drop shadow effect */
+    z-index: 999999;
+}
+
+
+#indicator {
+    color: #BA43CE;
+}
+
+.left-side-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    gap: 20px;
+    margin-left: 50px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    gap: 30px;
+    padding: 15px 40px;
+    border-radius: 50px;
+    background: white;
+    border: 1px solid #C30EFF; 
+    position: relative;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.navbar a:hover {
+    color: #C30EFF;
+}
+
+.navbar a.active {
+    color: #b100ff;
+}
+
+.search-bar {
+    display: flex;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-radius: 30px;
+    align-items: center;
+    border: 1px solid #C30EFF; 
+}
+
+.search-bar:hover input,
+.search-bar input:focus {
+    width: 400px;
+    padding: 10px;
+}
+
+.search-bar input {
+    width: 0;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    background: transparent;
+    transition: 0.8s ease;
+}
+
+.search-bar a {
+    font-size: 20px;
+    color: #C30EFF;
+}
+
+.search-bar input:active {
+    width: 400px;
+}
+
+.right-side-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    float: right;
+    margin-right: 50px;
+}
+
+.cart-btn {
+    position: relative;
+}
+
+.cart-btn i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #7f229e;
+}
+
+.cart-btn i:hover {
+    color: #C30EFF;
+}
+
+.cart-btn .notification {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.wishlist-btn {
+    font-size: 20px;
+    color: #C30EFF;
+    cursor: pointer;
+}
+
+.login-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btns a {
+    text-decoration: none;
+    color: #7f229e;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+
+.navbar a:hover {
+    color: #C30EFF;
+}

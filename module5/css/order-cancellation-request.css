@@ -1,0 +1,346 @@
+.container {
+    display: flex;
+    background: white;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1300px;
+    margin: 15px auto;
+}
+
+/* Header with back button + centered title */
+.orders-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.orders-header h1 {
+    display: inline-block; 
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Back button pinned to the left edge of .orders-header */
+.back-button {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 60px;
+    color: #5D2167;
+    font-weight: 300;
+}
+
+/* Product Details */
+.product-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-image {
+    max-width: 175px;
+    max-height: 175px;
+    margin-right: 15px;
+    border-radius: 20px;
+    float: left;
+}
+
+.product-details p {
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: 400;
+    /* use overflow-wrap: break-word if needed for very long text */
+}
+
+.price {
+    position: relative;
+    margin-bottom: 20px; 
+}
+
+/* Price at the top-left (normal flow) */
+.price-amount {
+    margin-bottom: 10px;
+    font-size: 2rem; /* Default on larger screens */
+}
+
+/* Quantity pinned to the bottom-right corner */
+.quantity {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* Peso and price-value styling */
+.peso {
+    font-size: 40px;
+    font-weight: 400;
+}
+.price-value {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+/* Quantity labels */
+.qty-label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+.qty-value {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+    .price {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .quantity {
+      position: static;
+      margin-top: 8px;
+    }
+
+    /* Scale down the price text on smaller devices */
+    .price-amount {
+      font-size: 1.5rem;
+    }
+    .peso {
+      font-size: 28px;
+    }
+    .price-value {
+      font-size: 28px;
+    }
+}
+
+/* Cancellation Reason */
+.cancel-reason-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-reason-button {
+    display: flex;
+    cursor: pointer;
+}
+
+.cancel-reason-container p {
+    align-self: center;
+}
+
+.cancel-reason-button p span {
+    font-size: 40px;
+    font-weight: 300;
+    color: #5d2167;
+    padding-left: 5px;
+}
+
+/* Detailed Explanation */
+.explanation-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: white;
+    margin-bottom: 30px;
+}
+
+.explanation-container p {
+    margin-bottom: 20px;
+}
+
+.text-input {
+    padding: 0 30px;
+}
+
+.styled-textarea {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #BA43CE;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    background-color: #f3daf5;
+    color: black;
+    font-family: inherit;
+}
+
+/* Submit Button */
+.submit-cancel-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.submit-cancel-btn button {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    background-image: linear-gradient(90deg, #C30EFF, #6900FD);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.submit-cancel-btn :hover{
+    background-image: linear-gradient(90deg, #C30EFF50, #6900FD50);
+    color: black;
+    border: 1px solid #C30EFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    /* For smaller screens, we may want to limit height */
+    max-height: 90vh; 
+    overflow-y: auto;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.close-popup {
+    cursor: pointer;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.close-popup:hover {
+    color: red;
+}
+
+.reason-box {
+    background: #f5e1fa;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.reason-box label {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    width: 85%;
+}
+
+.reason-box input[type="radio"] {
+    display: none;
+}
+
+.reason-box label::before {
+    content: '';
+    position: absolute;
+    right: -17.5%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #800080;
+    border-radius: 50%;
+    background-color: white;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.reason-box input[type="radio"]:checked + label::before {
+    background-color: #800080;
+    border-color: #800080;
+    content: '✓';
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+.reason-box input[type="radio"]:checked + label {
+    color: #BA43CE;
+}
+
+.popup-buttons button {
+    width: 100%;
+    background: linear-gradient(135deg, #800080, #b266ff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    padding: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.popup-buttons button:hover {
+    background: linear-gradient(135deg, #b266ff, #800080);
+}
+
+@media (min-width: 1250px) {
+    .content{
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+    .orders-header h1{
+        font-size: 40px;
+    }
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 700px) {
+    .product-container {
+        flex-direction: column;
+        overflow-x: hidden; /* Disable horizontal scrollbar */
+    }
+    .orders-header h1{
+        font-size: 20px;
+    }
+    .back-button{
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Make popup scale even more on very small screens */
+    .popup {
+        padding: 15px;
+        width: 95%;
+        max-width: 400px; 
+        max-height: 80vh; 
+        overflow-y: auto;
+    }
+
+    .reason-box label {
+        padding: 2px;
+        font-size: 14px; /* Slightly smaller text */
+    }
+
+    .close-popup {
+        font-size: 20px;
+    }
+}

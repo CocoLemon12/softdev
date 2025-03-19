@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="CSS\dashboardstyles.css">
+    
+</head>
+<body class="bg-gradient-to-r from-gray-100 to-purple-200 h-screen flex">
+
+        <!-- side bar -->
+    <div class="sidebar">
+        <div class="logo">LOGO</div>
+        <ul>
+          <li class="active">
+            <a href="#">
+              <img src="https://cdn-icons-png.flaticon.com/128/1828/1828791.png" alt="" class="icon">
+              <span class="text">Dashboard</span>
+            </a>
+          </li>
+          <li><a href="#"> <img src="https://cdn-icons-png.flaticon.com/128/17213/17213078.png" class="icon" alt=""><span class="text">Users</span></a></li>
+          <li><a href="ProductsDashboard.html"><img src="https://cdn-icons-png.flaticon.com/128/15748/15748047.png" class="icon" alt=""> <span class="text">Products</span></a></li>
+          <li><a href="SalesDashboard.html"><img src="https://cdn-icons-png.flaticon.com/128/3144/3144573.png" class="icon"> <span class="text">Sales Report</span></a></li>
+          <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/503/503849.png" alt="" class="icon"><span class="text">Setting</span></a></li>
+          <li id="logout"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png" alt="" class="icon"> <span class="text">Log Out</span></a></li>
+        </ul>
+      </div>
+      
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+        
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center">
+            <h1 class="Dashboard"> Admin Dashboard</h1>
+            <div class="flex items-center space-x-4">
+                
+                <img src="https://cdn-icons-png.flaticon.com/128/7915/7915354.png" alt="Search" width="30" height="30">
+                <div class="flex items-center space-x-2">
+                    <p class="text-lg font-medium" id="adminName">Loading...</p>
+                    <span class="text-sm text-gray-500">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+         <br>
+         <br>
+        
+         <div class="grid1 gap-4 mt-6">
+            <br>
+            <h2>Today's Data</h2>
+            <div class="Cards">
+                <div class="card1">
+                    <div class="card1_1">
+                        <h4 class="h4_1" id="totalSales">Loading...</h4>
+                        <h4 class="h4_2">Total Sales</h4>
+                        <h4 class="h4_3">↑ 15% Yesterday</h4>
+                    </div>
+                </div>
+                <div class="card2">
+                    <div class="card2_1">
+                        <h4 class="h4_1" id="totalOrders">Loading...</h4>
+                        <h4 class="h4_2">Total Orders</h4>
+                        <h4 class="h4_3">↑ 10% Yesterday</h4>
+                    </div>
+                </div>
+                <div class="card3">
+                    <div class="card3_1">
+                        <h4 class="h4_1" id="totalSold">Loading...</h4>
+                        <h4 class="h4_2">Total Sold</h4>
+                        <h4 class="h4_3">↑ 12% Yesterday</h4>
+                    </div>
+                </div>
+                <div class="card4">
+                    <div class="card4_1">
+                        <h4 class="h4_1" id="totalUsers">Loading...</h4>
+                        <h4 class="h4_2">Total Users</h4>
+                        <h4 class="h4_3">↑ 18% Yesterday</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-3 gap-4 mt-6">
+            
+            <!-- Total Revenue Chart -->
+            <div class="bg-white p-4 shadow-lg rounded-xl col-span-2">
+                <h3 class="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                <canvas id="revenueChart"></canvas>
+                <div class="flex justify-center mt-2 space-x-4 text-sm text-gray-500">
+                    <span class="text-blue-500">⬤ PHP</span>
+                    
+                </div>
+            </div>
+
+            <!-- Visitor Insights Chart -->
+            <div class="Visitor">
+                <h3 class="Visitor_header">Most Sold Categories</h3>
+                <canvas id="visitorChart" class="visitchart"></canvas>
+                <div class="visitlegend">
+                    <span class="text-red-500">⬤ Parts</span>
+                    <span class="text-yellow-500 ml-2">⬤ Peripherals</span>
+                    <span class="text-green-500 ml-2">⬤ Devices</span>
+                    <span class="text-blue-500 ml-2">⬤ Digital</span>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch("getDashboardData.php")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("totalSales").innerText = "P" + data.total_sales.toLocaleString();
+            document.getElementById("totalOrders").innerText = data.total_orders;
+            document.getElementById("totalSold").innerText = data.total_sold;
+            document.getElementById("totalUsers").innerText = data.total_users;
+        })
+        .catch(error => console.error("Error fetching dashboard data:", error));
+});
+
+        document.addEventListener("DOMContentLoaded", function () {
+        fetch("getUser.php")
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("adminName").textContent = data.adminName;
+                } else {
+                    console.error("User not logged in");
+                }
+            })
+            .catch(error => console.error("Error fetching user:", error));
+    });
+        // Total Revenue Chart
+       
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch("getRevenueData.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error fetching revenue data:", data.error);
+                return;
+            }
+
+            // Extract labels and values
+            const labels = Object.keys(data).map(month => month.padStart(2, "0"));
+            const revenueValues = Object.values(data);
+
+            // Update chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'PHP',
+                        data: revenueValues,
+                        backgroundColor: '#3B82F6'
+                    }]
+                }
+            });
+        })
+        .catch(error => console.error("Error fetching revenue data:", error));
+});
+
+
+        // Visitor Insights Chart
+       
+        document.getElementById("logout").addEventListener("click", function () {
+    // Optional: Call PHP script to destroy session
+    fetch("logout.php", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to index.html after logout
+                window.location.href = "index.html";
+            } else {
+                alert("Logout failed!");
+            }
+        })
+        .catch(error => console.error("Error logging out:", error));
+});
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('getCategorySales.php')
+    .then(response => response.text()) // Get raw response first
+    .then(text => {
+        console.log("Raw Response:", text);
+        return JSON.parse(text); // Manually parse JSON
+    })
+    .then(data => {
+        console.log("Parsed Data:", data);
+        renderChart(data);
+    })
+    .catch(error => console.error("Error fetching category sales trends:", error));
+    });
+
+
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    fetch("getCategorySales.php")
+        .then(response => response.json())
+        .then(data => {
+            console.log("Category Sales Trends Data:", data);
+            renderChart(data); // Call the function to render the chart
+        })
+        .catch(error => console.error("Error fetching category sales trends:", error));
+});
+
+function renderChart(data) {
+    const ctx = document.getElementById("visitorChart").getContext("2d");
+
+    const months = data.months; // ["2025-01", "2025-02", ..., "2025-12"]
+    const salesData = data.sales;
+
+    // Define specific colors for each category (matching your legend)
+    const categoryColors = {
+        "PARTS": "rgba(255, 99, 132, 1)", // Red
+        "PERIPHERALS": "rgba(255, 206, 86, 1)", // Yellow
+        "DEVICES": "rgba(75, 192, 192, 1)", // Green
+        "DIGITAL": "rgba(54, 162, 235, 1)", // Blue
+    };
+
+    // Convert category sales into dataset format for Chart.js
+    const datasets = Object.keys(salesData).map(category => ({
+        label: category,
+        data: months.map(month => salesData[category][month] || 0),
+        borderColor: categoryColors[category] || "rgba(128, 128, 128, 1)", // Default Gray if missing
+        backgroundColor: categoryColors[category] || "rgba(128, 128, 128, 0.5)",
+        fill: false,
+        tension: 0.1, // Smooth line
+    }));
+
+    // Create the Line Chart
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: months, // X-axis (months)
+            datasets: datasets // Y-axis (sales per category)
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+                title: {
+                    display: false,
+                    text: "Most Sold Categories (Monthly Trends)"
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Months"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Total Sales"
+                    }
+                }
+            }
+        }
+    });
+}
+
+</script>
+</body>
+</html>

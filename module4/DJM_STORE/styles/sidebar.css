@@ -1,0 +1,53 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-navigation p {
+  color: gray;
+  word-spacing: 10px;
+}
+
+.sidebar-navigation span {
+  color: gray;
+  word-spacing: 0;
+}
+/* LEFT NAV BAR */
+.left-nav-link {
+  text-align: center;
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+.left-nav-link:hover {
+  color: #ba43ce;
+}
+.sidebar-navigation {
+  font-size: 1.2rem;
+}
+.sidebar-account-name {
+  font-size: 2rem;
+}
+.user-text {
+  color: #ba43ce;
+  font-weight: 500;
+}
+/* styles of left nav bar */
+
+.my-account-css {
+  text-decoration: none;
+}
+.my-account-css:hover {
+  text-decoration: none;
+  color: #ba43ce;
+}
+.purchase-history-css {
+  text-decoration: none;
+  color: black;
+}
+.purchase-history-css:hover {
+  color: #ba43ce;
+}

@@ -1,0 +1,187 @@
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: Arial, sans-serif; 
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Hides scrollbar for Webkit browsers */
+}
+
+.logo img {
+    width: 250px;
+    height: auto;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    background-color: #f9f9f9;
+    position: relative;
+    overflow-x: hidden; 
+    padding: 20px;
+}
+
+
+body::before, body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+}
+
+body::before {
+    width: 300px; height: 300px;
+    background: linear-gradient(to bottom right, #1E92FF, #C30EFF);
+    bottom: -50px; left: -50px;
+}
+
+body::after {
+    width: 300px; height: 300px;
+    background: linear-gradient(to bottom right, #6900FD, #C30EFF);
+    top: -50px; right: -50px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px; /* Increased from 480px */
+    margin: 0 auto; /* Centers the form horizontally */
+    padding: 20px;
+}
+
+#loginPassword, #signupPassword, #signupConfirmPassword {
+    padding: 22px;
+}
+
+.logo { 
+    font-size: 1.5em; 
+    font-weight: 300; 
+    color: #BA43CE; 
+    margin-bottom: 20px; 
+}
+
+.form-container {
+    background: white; 
+    padding: 40px; 
+    border-radius: 12px;
+    border: 1px solid #C30EFF;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 100%; /* Uses full width of its container */
+}
+
+.form-container h2 { 
+    margin-bottom: 50px; 
+    color: #212121; 
+    font-weight: 500;
+}
+
+.form-group { 
+    text-align: left; 
+    margin-bottom: 20px; 
+}
+
+.form-group label { 
+    display: block; 
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #333333; 
+}
+
+.form-group input {
+    width: 100%; 
+    padding: 10px; 
+    margin-top: 5px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    width: 100%;
+    padding-right: 35px; 
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: gray;
+}
+
+.forgot-password {
+    transform: translateY(-10px);
+    text-align: right; 
+    font-size: 12px; 
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #212121; 
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.terms { 
+    font-size: 13px; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    color: #333333; 
+}
+
+.terms a {
+    color: #212121; 
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%; 
+    padding: 14px;
+    background: linear-gradient(to right, #C30EFF, #6900FD);
+    color: white; 
+    border: none; 
+    border-radius: 25px;
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+.btn:hover { 
+    background: linear-gradient(to right, #6900FD, #C30EFF); 
+}
+
+.toggle-form {
+    margin-top: 30px; 
+    font-size: 14px; 
+    color: #333333;
+}
+
+.toggle-form a {
+    color: #6900FD; 
+    text-decoration: none; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.toggle-form a:hover {
+    text-decoration: underline; 
+}

@@ -1,0 +1,175 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sales Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="CSS\SalesDashboard.css">
+    </head>
+    <body class="bg-gradient-to-r from-gray-100 to-purple-200 h-screen flex">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">LOGO</div>
+            <ul>
+            <li >
+                <a href="dashboard.html">
+                <img src="https://cdn-icons-png.flaticon.com/128/1828/1828791.png" alt="" class="icon">
+                <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li><a href="#"> <img src="https://cdn-icons-png.flaticon.com/128/17213/17213078.png" class="icon" alt=""><span class="text">Users</span></a></li>
+            <li><a href="ProductsDashboard.html"><img src="https://cdn-icons-png.flaticon.com/128/15748/15748047.png" class="icon" alt=""> <span class="text">Products</span></a></li>
+            <li class="active"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3144/3144573.png" class="icon"> <span class="text">Sales Report</span></a></li>
+            <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/503/503849.png" alt="" class="icon"><span class="text">Setting</span></a></li>
+            <li id="logout"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png" alt="" class="icon"> <span class="text">Log Out</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="flex-1 p-6"> 
+            <!-- Top Bar -->
+            <div class="flex justify-between items-center">
+                <h1 class="Dashboard"> Sales Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    
+                    <img src="https://cdn-icons-png.flaticon.com/128/7915/7915354.png" alt="Search" width="30" height="30">
+                    <div class="flex items-center space-x-2">
+                        <p class="text-lg font-medium" id="adminName">Loading...</p>
+                        <span class="text-sm text-gray-500">Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+
+                <div class="customer-transactions">
+                    <h3>Customer Transaction</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>UID</th>
+                                <th>Name</th>
+                                <th>Order Date</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Shipping Address</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Content Goes Here -->
+                        </tbody>
+                    </table>
+                    <!-- <button class="view-more">View More</button> -->
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    fetch("fetch_orders.php")   
+        .then(response => response.json())
+        .then(data => {
+            console.log("Order Data:", data); // ✅ Debugging
+
+            const tableBody = document.querySelector("tbody");
+            tableBody.innerHTML = ""; // Clear previous data
+            
+            data.forEach(order => {
+                console.log("Processing Order:", order); // ✅ Debugging
+
+                const fullName = order.full_name || `${order.first_name || ""} ${order.last_name || ""}`;
+                const currentStatus = order.order_Status; // ✅ Get current status
+
+                const row = `
+                    <tr>
+                        <td>${order.userID}</td>
+                        <td>${fullName.trim()}</td>
+                        <td>${order.date_Ordered}</td>
+                        <td>${order.product_name}</td>
+                        <td>${order.order_Qty}</td>
+                        <td>
+                            <select class="status-dropdown bg-white border-2 border-purple-400 text-gray-700 text-lg rounded-lg p-2 transition-all duration-300 ease-in-out 
+                                hover:bg-purple-200 focus:border-purple-700 focus:ring-2 focus:ring-purple-500"
+                                data-order-id="${order.order_id}">
+                                <option value="TO PAY" ${currentStatus === "TO PAY" ? "selected" : ""}>TO PAY</option>
+                                <option value="TO SHIP" ${currentStatus === "TO SHIP" ? "selected" : ""}>TO SHIP</option>
+                                <option value="TO RECEIVE" ${currentStatus === "TO RECEIVE" ? "selected" : ""}>TO RECEIVE</option>
+                                <option value="COMPLETED" ${currentStatus === "COMPLETED" ? "selected" : ""}>COMPLETED</option>
+                                <option value="CANCELLED" ${currentStatus === "CANCELLED" ? "selected" : ""}>CANCELLED</option>
+                                <option value="RETURNED" ${currentStatus === "RETURNED" ? "selected" : ""}>RETURNED</option>
+                            </select>
+                        </td>
+                        <td>${order.address}</td>
+                        <td>₱${order.total_Price}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+
+            // ✅ Add event listener to ALL dropdowns after inserting them
+            document.querySelectorAll(".status-dropdown").forEach(dropdown => {
+                dropdown.addEventListener("change", function () {
+                    const order_id = this.dataset.orderId;
+                    const newStatus = this.value;
+
+                    console.log("Updating Order ID:", order_id, "New Status:", newStatus); // Debugging
+
+                    fetch("update_status.php", {        
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: `order_id=${order_id}&status=${newStatus}`
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log("Server Response:", data);
+                        alert(data);
+                    })
+                    .catch(error => console.error("Error updating status:", error));
+                });
+            });
+
+        })
+        .catch(error => console.error("Error fetching orders:", error));
+});
+
+
+
+
+
+        document.getElementById("logout").addEventListener("click", function () {
+        // Optional: Call PHP script to destroy session
+        fetch("logout.php", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to index.html after logout
+                    window.location.href = "index.html";
+                } else {
+                    alert("Logout failed!");
+                }
+            })
+            .catch(error => console.error("Error logging out:", error));
+    });
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("getUser.php")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("adminName").textContent = data.adminName;
+                    } else {
+                        console.error("User not logged in");
+                    }
+                })
+                .catch(error => console.error("Error fetching user:", error));
+        });
+    </script>
+
+    </html>

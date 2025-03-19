@@ -1,0 +1,361 @@
+/* =========================
+   Orders Navbar Styles
+========================= */
+.orders-navbar {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #ccc;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* Global Styles for h1 */
+.orders-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Media Query for smaller screens (Tablets and smaller) */
+@media (max-width: 1024px) {
+    .orders-navbar {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .orders-header h1 {
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 28px;
+    }
+    /* Make the order container take up 100% width on smaller screens */
+    .order-container {
+        width: 100%;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .order-action-button {
+        padding: 8px 16px;
+        font-size: 14px;
+        width: auto;
+        height: 32px;
+    }
+}
+
+/* Navbar links */
+.orders-navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 20px 5px;
+    position: relative;
+    white-space: nowrap;
+}
+.orders-navbar a:hover::after,
+.orders-navbar a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: #32343D;
+}
+
+/* =========================
+   Order Card Styling
+========================= */
+.order-container {
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid #C30EFF;
+    /* Default: no fixed height on mobile/tablet */
+}
+
+/* Apply fixed max-height only for devices 1200px and above */
+@media (min-width: 1200px) {
+    .order-container {
+        max-height: 275px;  /* Fixed height for desktop/laptop */
+        overflow-y: hidden;   /* Enable scrolling if content exceeds 270px */
+    }
+    /* Pull up the total-info with negative margin on larger screens */
+    .total-info {
+        margin-top: -60px;
+    }
+    .content{
+        padding-left: 96px;
+        padding-right: 96px;
+    }
+}
+
+/* For devices below 1200px, remove the fixed height and negative margin */
+@media (max-width: 1199px) {
+    .order-container {
+        max-height: none;
+    }
+    .total-info {
+        margin-top: 10px;
+    }
+    
+}
+
+/* =========================
+   Order Header Styles
+========================= */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.order-header p {
+    font-size: 18px;
+    color: #7a1fa2;
+    font-weight: bold;
+}
+.order-header .order-date {
+    font-size: 14px;
+    color: #777;
+}
+
+/* =========================
+   Product Section
+========================= */
+.product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.product-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+/* =========================
+   Return/Warranty Text
+========================= */
+.order-container .product-details .return-warranty {
+    background-color: #C30EFF26;
+    color: #BA43CE;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 10px;
+}
+@media (max-width: 700px) {
+    .order-container .product-details .return-warranty {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+/* =========================
+   Price and Total Section
+========================= */
+.price-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+.total-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+}
+.item-info {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.7);
+    margin-right: 10px;
+}
+.total-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: black;
+    margin-left: 5px;
+}
+@media (max-width: 768px) {
+    .total-price {
+        font-size: 24px;
+    }
+    .item-info {
+        font-size: 14px;
+    }
+    .total-info {
+        flex-direction: column;
+        text-align: left;
+        margin-top: 10px;
+    }
+    .item-info,
+    .total-price {
+        margin-left: 0;
+    }
+}
+
+/* =========================
+   Action Buttons Styling
+========================= */
+.order-action-button {
+    padding: 10px 20px;
+    width: 154px;
+    height: 37px;
+    background-image: linear-gradient(90deg, #C30EFF, #6900FD);
+    color: white;
+    border: 1px solid #C30EFF;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: medium;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-image 0.3s, box-shadow 0.3s, color 0.3s;
+}
+.order-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+}
+.order-action-button:hover {
+    background-image: linear-gradient(90deg, #C30EFF45, #6900FD45);
+    color: black;
+    border: 1px solid #C30EFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.order-action-button:disabled {
+    background-image: linear-gradient(90deg, #dcdcdc, #dcdcdc);
+    color: #aaa;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+}
+.view-details-button {
+    padding: 10px 20px;
+    width: 154px;
+    height: 37px;
+    background-image: linear-gradient(90deg, white, white);
+    color: black;
+    border: 1px solid #C30EFF;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: medium;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-image 0.3s, box-shadow 0.3s, color 0.3s;
+}
+
+.view-details-button:hover {
+    background-image: linear-gradient(90deg, #c30eff10, #6900FD10);
+    color: black;
+}
+
+/* =========================
+   Status Icons & Top Section
+========================= */
+.order-header img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.order-actions form {
+    display: inline-block;
+}
+.above {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    border: 1px solid #C30EFF;
+    padding: 5px;
+}
+.above p {
+    padding-inline: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: black;
+    gap: 15px;
+}
+.above img {
+    width: 35px;
+}
+
+/* =========================
+   Adjustments for Smaller Screens (max-width: 700px)
+========================= */
+@media (max-width: 700px) {
+    .product {
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-image {
+        max-width: 100px;
+        max-height: 100px;
+    }
+    .order-actions {
+        justify-content: center;
+    }
+    .order-action-button {
+        width: auto;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+    .order-container {
+        width: 100%;
+        max-height: none;
+    }
+    .order-header h1 {
+        font-size: 24px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .above p {
+        font-size: 12px;
+    }
+}
+
+/* =========================
+   Product Details Adjustments
+========================= */
+.product-details p {
+    font-size: 20px;
+    color: #333;
+    margin: 5px 0;
+    font-weight: 400;
+}
+.product-details .price {
+    margin-bottom: 10px;
+}
+/* Specifically style .total-price in .product-details */
+.product-details .total-price {
+    font-size: 32px;
+    font-weight: 400;
+    color: black;
+    margin-left: 5px;
+}
+@media (max-width: 768px) {
+    .product-details .total-price {
+        font-size: 24px;
+    }
+}

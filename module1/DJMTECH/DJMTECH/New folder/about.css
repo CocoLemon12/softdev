@@ -1,0 +1,310 @@
+body {
+    background-color: #a1a1a1;
+    display: flex;
+
+}
+
+.navbar, .footer {
+    width: 100vw; 
+    position: fixed; 
+    left: 0;
+    bottom: 0; 
+    box-sizing: border-box;
+    overflow-x: hidden; 
+}
+.navbar {
+    height: 117px;
+    background-color: #F5F5F5;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+}
+
+    
+
+
+.text-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 60vh; 
+    text-align: center;
+    margin: auto;
+    width: 80%; 
+}
+
+.H1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 65px;
+    font-weight: 800;
+}
+
+.djmtech{
+
+   color: #6900FD;
+}
+
+.p1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.dj{
+    font-weight: 600;
+}
+
+.p2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    max-width: 1200px; 
+    max-height: 108px;
+    margin-top: 66px;
+}
+
+
+
+
+.footer {
+    position: absolute;
+    top: 1416px;
+    height: 545px;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(26.2px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.footer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 600; 
+    color: #740699;
+    position: absolute;
+    top: 70px;
+    left: 152px;
+}
+
+.footer-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400; 
+    color: #050505;
+    width: 333px;
+    position: absolute;
+    top: 130px; 
+    left: 152px;
+}
+
+
+.footer-links{
+    position:absolute;
+    left: 540px;
+    top: 120px;
+
+    width: 121;
+    height: 185.33;
+    gap: 15.6;
+    font-size: 19px;
+    font-weight: 400; 
+    color: rgba(0, 0, 0, 0.8);  
+}
+
+.company-links{
+font-size: 23px;
+font-weight: 400;   
+color: #050505;
+width: 139;
+height: 21;
+position:absolute;
+left: 1000px;
+top: 50px;
+
+}.menu-links{
+font-size: 23px;
+font-weight: 400;   
+color: #050505;
+width: 139;
+height: 21;
+position:absolute;
+left: 800px;
+top: 50px;
+
+}
+.quick-links{
+font-size: 23px;
+font-weight: 400;   
+color: #050505;
+width: 139;
+height: 21;
+position:absolute;
+left: 540px;
+top: 50px;
+
+}
+
+
+.menu-home, .menu-product{
+font-size: 19px;
+font-weight: 400; 
+color: rgba(0, 0, 0, 0.8);
+}
+.menu{
+position:absolute;
+left: 800px;
+top: 120px;
+
+width: 121;
+height: 185.33;
+
+gap: 15.6;
+
+}
+
+.about-company, .contact-company{
+font-size: 19px;
+font-weight: 400; 
+color: rgba(0, 0, 0, 0.8);
+}
+
+.company{
+position:absolute;
+left: 1000px;
+top: 120px;
+
+width: 121;
+height: 185.33;
+
+gap: 15.6;
+}
+
+.footer-line {
+width: 1300px;
+border: none;
+border-top: 0.5px solid #1A202C;
+position: absolute;
+top: 350;
+
+
+}
+
+
+
+.touch{
+
+    color: #6900FD;
+}
+.logo {
+    position: absolute;
+    left: 120px;
+    top: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    color: #BA43CE;
+}
+
+.nav-box {
+    width: 522px;
+    height: 51px;
+    border: 1px solid black;
+    border-radius: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 259px;
+    top: 35px;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+
+
+@media (max-width: 768px) {
+    .nav-box {
+        width: 100%;
+        left: auto;
+        top: auto;
+        position: static;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar {
+        height: auto;
+        padding: 20px 0;
+    }
+   
+
+    
+}
+
+
+.rights{
+
+    position: absolute;
+    top:450;
+    left: 125; ;
+    width: 485;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    color: #050505;
+}
+
+.terms, .privacy{
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    color: #050505;
+}
+
+.terms{
+
+    position: absolute;
+    top: 450;
+    left: 620;
+}
+
+.privacy{
+
+    position: absolute;
+    top: 450;
+    left: 800;
+}
+
+

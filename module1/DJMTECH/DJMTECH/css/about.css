@@ -1,0 +1,123 @@
+.about-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 50px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+/* Banner Styling */
+.banner {
+    width: 100%;
+    background-color: #000;
+}
+
+.banner-image {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    background-size: contain;
+}
+
+/* About Section Styling */
+.about-content {
+    background: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.about-content h1 span {
+    color: #7000ff;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+}
+  
+  .mission-vision {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 0;
+  }
+  
+  .mission, .vision {
+    flex: 1;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mission h2, .vision h2 {
+    color: #b200ff;
+    font-size: 1.8rem;
+  }
+  
+  .mission p, .vision p {
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .why-choose {
+    padding: 40px 0;
+  }
+  
+  .why-choose h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .why-choose h2 span {
+    color: #b200ff;
+  }
+  
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .feature-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+  }
+  
+  .feature-box h3 {
+    font-size: 1.5rem;
+    color: #b200ff;
+  }
+  
+  .feature-box p {
+    font-size: 1rem;
+    color: #444;
+  }

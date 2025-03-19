@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/authentication.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo"><img src="assets/DJMLogo.png"></div>
+        
+        <div id="loginForm" class="form-container">
+            <h2>LOGIN</h2>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+            <div class="input-container">
+                <input type="password" id="loginPassword" required>
+                <span class="toggle-password" onclick="togglePassword('loginPassword')">&#128065;</span>
+            </div>
+        </div>
+            <div class="forgot-password"><a href="#">Forgot your password?</a></div>
+            <div class="terms">By continuing, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</div>
+            <button class="btn">LOG IN</button>
+            <div class="toggle-form">Don't have an account yet? <a onclick="switchForm()">SIGN UP</a></div>
+        </div>
+        
+        <div id="signupForm" class="form-container" style="display: none;">
+            <h2>CREATE AN ACCOUNT</h2>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" required>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Barangay</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Street Address</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-container">
+                    <input type="password" id="signupPassword" required>
+                    <span class="toggle-password" onclick="togglePassword('signupPassword')">&#128065;</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="input-container">
+                    <input type="password" id="signupConfirmPassword" required>
+                    <span class="toggle-password" onclick="togglePassword('signupConfirmPassword')">&#128065;</span>
+                </div>
+            </div>
+            <div class="terms">By continuing, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</div>
+            <button class="btn">SIGN UP</button>
+            <div class="toggle-form">Already have an account? <a onclick="switchForm()">SIGN IN</a></div>
+        </div>
+    </div>
+    
+    <script>
+        function switchForm() {
+            var loginForm = document.getElementById('loginForm');
+            var signupForm = document.getElementById('signupForm');
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        function togglePassword(inputId) {
+    var passwordInput = document.getElementById(inputId);
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
+
+    </script>
+</body>
+</html>

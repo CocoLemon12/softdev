@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/ProductsDashboard.css">   
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-r from-gray-100 to-purple-200 h-screen flex">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">LOGO</div>
+        <ul>
+          <li >
+            <a href="dashboard.html">
+              <img src="https://cdn-icons-png.flaticon.com/128/1828/1828791.png" alt="" class="icon">
+              <span class="text">Dashboard</span>
+            </a>
+          </li>
+          <li><a href="#"> <img src="https://cdn-icons-png.flaticon.com/128/17213/17213078.png" class="icon" alt=""><span class="text">Users</span></a></li>
+          <li  class="active"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/15748/15748047.png" class="icon" alt=""> <span class="text">Products</span></a></li>
+          <li><a href="SalesDashboard.html"><img src="https://cdn-icons-png.flaticon.com/128/3144/3144573.png" class="icon"> <span class="text">Sales Report</span></a></li>
+          <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/503/503849.png" alt="" class="icon"><span class="text">Setting</span></a></li>
+          <li id="logout"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png" alt="" class="icon"> <span class="text">Log Out</span></a></li>
+        </ul>
+      </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Topbar -->
+        <div class="flex justify-between items-center">
+            <h1 class="Dashboard"> Product Dashboard</h1>
+            <div class="flex items-center space-x-4">
+                <div class="search_bar">
+                    <div class="search-container">
+                        <span class="search-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/128/6512/6512778.png" alt="Search" width="30" height="30">
+                        </span>
+                        <input type="text" class="search-input" placeholder="Search here">
+                    </div>  
+                </div>
+                <img src="https://cdn-icons-png.flaticon.com/128/7915/7915354.png" alt="Search" width="30" height="30">
+                <div class="flex items-center space-x-2">
+                    <p class="text-lg font-medium" id="adminName">Loading...</p>
+                    <span class="text-sm text-gray-500">Admin</span>
+                </div>
+            </div>
+        </div>
+        <!-- Products Table -->
+        <div class="products-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PID</th>
+                        <th>Product</th>
+                        <th>Product Name</th>
+                        <th>Stock</th>
+                        <th>Sold</th>
+                        <th>Description</th>
+                        <th>Rating</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <!-- Products will be loaded here via AJAX -->
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("getUser.php")
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("adminName").textContent = data.adminName;
+                } else {
+                    console.error("User not logged in");
+                }
+            })
+            .catch(error => console.error("Error fetching user:", error));
+    });
+   document.addEventListener("DOMContentLoaded", function () {
+    fetchProducts();
+});
+
+function fetchProducts() {
+    fetch("fetch_products.php")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("product-list").innerHTML = data;
+        })
+        .catch(error => console.error("Error fetching products:", error));
+}
+document.getElementById("logout").addEventListener("click", function () {
+    // Optional: Call PHP script to destroy session
+    fetch("logout.php", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to index.html after logout
+                window.location.href = "index.html";
+            } else {
+                alert("Logout failed!");
+            }
+        })
+        .catch(error => console.error("Error logging out:", error));
+});
+    </script>
+    
+</html>

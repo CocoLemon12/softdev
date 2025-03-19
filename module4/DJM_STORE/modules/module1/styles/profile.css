@@ -1,0 +1,80 @@
+.right-content-sub {
+  background-color: rgb(254, 254, 254);
+  padding: 1rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.my-profile-css {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  color: #ba43ce;
+  font-size: 1.5rem;
+}
+.profile-image-css {
+  text-align: center;
+  height: 9rem;
+}
+.profile-fields {
+  padding-top: 8%;
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  gap: 4rem;
+}
+.fields-column-one {
+  flex: 1;
+}
+.fields-column-two {
+  flex: 1;
+}
+
+/* .field-css {
+  display: flex;
+  margin-top: 0.5rem;
+  align-content: center;
+  height: 2rem;
+  /* background-image: linear-gradient(to right, #ba43ce, #6900fd); */
+/* background-color: #6900fd;
+}  */
+
+.field-new-css {
+  flex: 1;
+  margin-top: 1rem;
+}
+.field-text-header{
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+.display-profile-detail{
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.field-new-css p {
+  color: black;
+  background-color: rgb(243, 202, 243);
+  height: 3rem;
+  padding: auto;
+  padding-left: .5rem;
+  align-content: center;
+}
+
+.edit-profile-button {
+  display: flex;
+  height: 10rem;
+  justify-content: end;
+  align-items: end;
+}
+.edit-profile-button-css {
+  margin-right: 3%;
+  height: 35%;
+  font-size: 17px;
+  font-weight: bold;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  color: white;
+  background-image: linear-gradient(to right, #ba43ce, #6900fd);
+}

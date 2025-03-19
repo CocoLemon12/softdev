@@ -1,0 +1,334 @@
+
+
+
+
+.bg-white.p-4.shadow-lg.rounded-xl.col-span-2{
+  margin-left: 100px;
+}
+
+.flex.justify-between.items-center{
+
+h1.Dashboard{
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 100px;
+}
+
+/* Search Bar Container */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    padding: 10px 15px;
+    width: 350px;
+    transition: border 0.3s ease-in-out;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(160, 32, 240, 0.2);
+
+  }
+  
+  /* Icon Style */
+  .search-icon {
+    font-size: 20px;
+    color: #a020f0;
+    margin-right: 10px;
+  }
+  
+  /* Input Field */
+  .search-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #666;
+    width: 100%;
+    background: transparent;
+  }
+  
+  /* Focus Effect */
+  .search-container:focus-within {
+    border: 2px solid #a020f0; /* Purple outline when focused */
+  }
+}
+
+
+.grid1.gap-4.mt-6{
+    margin-left: 100px;
+   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 890px;
+    border-radius: 10px;
+    grid-column: 10px;
+    grid-row: 4px;
+    gap: 2px;
+    margin-top: 6px;
+    background-color: #ffffff;
+    height: 380px;
+    h2{
+        margin-left: 30px;
+        font-size: 30px;
+        font-weight: bold;
+        
+       }
+}
+.Cards{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px; /* 3 columns */
+    gap: 10px; /* Spacing between items */
+    margin-left: 30px;
+    place-items: center;
+    margin-top: 90px;
+
+        .card1{
+            background-color: #FFE3E8;
+            border-radius: 10px;
+            width: 190px;
+            height: 190px;
+               .card1_1{
+                margin-top: 75px;
+                margin-left: 20px;
+
+                .h4_1{
+                   
+                    font-size: 25px;
+                    font-weight: bold;
+                    
+                }
+                .h4_2{
+                    font-size: 20px;
+                    font-weight: bold;
+                    font-size: large;
+                    
+
+
+                }
+                .h4_3{
+                    margin-top: 10px;
+                    color: rgb(2, 50, 241);
+                    font-weight: normal;
+                }
+                
+               }
+
+        }
+        .card2{
+            background-color: #FFF4E0;
+            border-radius: 10px;
+            width: 190px;
+            height: 190px;
+
+            .card2_1{
+                margin-top: 75px;
+                margin-left: 20px;
+
+                        .h4_1{
+                            
+                            font-size: 25px;
+                            font-weight: bold;
+                            
+                        }
+                        .h4_2{
+                            font-size: 20px;
+                            font-weight: bold;
+                            font-size: large;
+                            
+
+
+                        }
+                        .h4_3{
+                            margin-top: 10px;
+                            color: rgb(2, 50, 241);
+                        }
+        }
+        }
+        .card3{
+           
+            background-color: #DDFDE8;
+            border-radius: 10px;
+            width: 190px;
+            height: 190px;
+            .card3_1{
+                margin-top: 75px;
+                margin-left: 20px;
+            .h4_1{
+                   
+                font-size: 25px;
+                font-weight: bold;
+                
+            }
+            .h4_2{
+                font-size: 20px;
+                font-weight: bold;
+                font-size: large;
+                
+
+
+            }
+            .h4_3{
+                margin-top: 10px;
+                color: rgb(2, 50, 241);
+            }
+        }
+        }
+        .card4{
+           
+            background-color: #F5E7FF;
+            border-radius: 10px;
+            width: 190px;
+            height: 190px;
+
+            .card4_1{
+                margin-top: 75px;
+                margin-left: 20px;
+            .h4_1{
+                   
+                font-size: 25px;
+                font-weight: bold;
+                
+            }
+            .h4_2{
+                font-size: 20px;
+                font-weight: bold;
+                font-size: large;
+                
+
+
+            }
+            .h4_3{
+                margin-top: 10px;
+                color: rgb(2, 50, 241);
+            }
+        }
+    }
+
+    }
+   /* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80px; /* Collapsed Width */
+    height: 100vh;
+    background: #f5edf9;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  /* Expand Sidebar on Hover */
+  .sidebar:hover {
+    width: 230px;
+    align-items: flex-start;
+  }
+  
+  /* Logo */
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #a020f0;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    opacity: 0; /* Hidden initially */
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Show Logo on Hover */
+  .sidebar:hover .logo {
+    opacity: 1;
+  }
+  
+  /* Menu Items */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .sidebar ul li {
+    padding: 10px;
+    transition: background 0.3s;
+  }
+  
+  /* Menu Links */
+  .sidebar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  /* Icons */
+  .sidebar ul li .icon {
+    font-size: 20px;
+    margin-right: 10px;
+    text-align: center;
+    width: 30px;
+  }
+  
+  /* Hide text when collapsed */
+  .sidebar ul li .text {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  /* Show text on hover */
+  .sidebar:hover ul li .text {
+    opacity: 1;
+  }
+  
+  /* Active link */
+  .sidebar ul li.active a {
+    background: #a020f0;
+    color: white;
+  }
+  
+  /* Hover Effect - Highlight the hovered item */
+  .sidebar ul li:hover a {
+    background: rgba(160, 32, 240, 0.2); /* Light purple */
+    color: #a020f0; /* Dark purple text */
+  }
+  .Visitor{
+    margin-top: -405px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 450px;
+    height: 381px;
+  }
+  .Visitor_header{
+    font-weight: bolder;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .visitchart{
+    margin-top: 40px;
+   
+  }
+  .visitlegend{
+   margin-left: 115px;
+   font-size: smaller;
+   margin-top: 20px;
+  }
+  .flex.items-center.space-x-2{
+    h1{
+      font-size: 20px;
+      font-weight: lighter;  
+    }
+    h2{
+      font-size: 20px;
+      font-weight: lighter;  
+    }
+
+  }
+  .flex.items-center.space-x-4{
+    margin-right: 40px;
+  }

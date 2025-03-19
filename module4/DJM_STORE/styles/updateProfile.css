@@ -1,0 +1,106 @@
+.right-content-sub {
+  background-color: rgb(254, 254, 254);
+  padding: 1.5rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.my-profile-css {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  color: #6d0baf;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-image-css {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-fields {
+  display: flex;
+  gap: 2rem;
+  padding: 5% 10%;
+}
+
+.fields-column-one,
+.fields-column-two {
+  flex: 1;
+  color: #333;
+}
+
+.field-css {
+  width: 100%;
+  margin-top: 0.3rem;
+  height: 2.5rem;
+  border: 1px solid #383737;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 1rem;
+  background-color: rgb(243, 202, 243);
+  color: black;
+}
+
+
+/* Change Password Section */
+.password-section {
+  padding: 1rem 10%;
+  margin-top: 1.5rem;
+  
+}
+
+.password-section p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.password-section input {
+  
+  width: 100%;
+  margin-top: 0.5rem;
+  height: 2.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 1rem;
+  background-color: #f5f5f5;
+}
+
+/* Focus effect */
+.password-section input:focus {
+  border-color: #6d0baf;
+  outline: none;
+}
+
+/* Buttons */
+.profile-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 10%;
+}
+
+.cancel-button {
+  background: white;
+  color: #6d0baf;
+  border: 2px solid #6d0baf;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-button {
+  background-image: linear-gradient(to right, #ba43ce, #6900fd);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 1rem;
+  cursor: pointer;
+}

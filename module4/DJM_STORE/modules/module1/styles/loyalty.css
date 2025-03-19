@@ -1,0 +1,78 @@
+body {
+  padding-top: 10rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  margin-left: 3rem;
+  flex: 0.25;
+}
+.right-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  padding-right: 7rem;
+  background-color: transparent;
+}
+.right-content-sub {
+  background-color: rgb(254, 254, 254);
+  padding: 2rem 4rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.loyalty-container{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.loyalty-header{
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+.card-container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.card-container-text{
+    margin-bottom: .5rem;
+    color: gray;
+    font-size: 25px;
+    font-weight: bold;
+}
+.loyalty-bar-text{
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+   
+}
+.loyalty-bar-num{
+    color: #BA43CE;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.loyalty-bar{
+    display: flex;
+    margin-top: 1rem;
+    
+}
+
+.progress-bar{
+width: 100%;
+  height: 3rem;
+  
+}
+.progress-bar::-webkit-progress-bar {
+  background-color: rgb(187, 185, 185); 
+  border-radius: 6rem;
+}
+.progress-bar::-webkit-progress-value {
+  background-color: #BA43CE; 
+  border-radius: 6rem;
+}
