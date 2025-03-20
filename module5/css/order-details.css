@@ -106,7 +106,9 @@
     border-radius: 5px;
     display: inline-block;
 }
-
+.product-imagee{
+    padding: none;
+  }
 
 /* Adjust the back button size at wider screens */
 @media (min-width: 1200px) {
@@ -119,6 +121,17 @@
     .section{
         padding-left: 100px;
         padding-right: 100px;
+    }
+    .product-imagee{
+        max-height: 400px;
+        padding-right: 90px;
+    }
+    .track-order-button{
+        height: auto;
+        width:  154px;
+    }
+    .track-button-wrapper{
+        margin-top: -24px;       /* space above the button */
     }
 }
 @media (max-width: 844px) {
@@ -175,7 +188,40 @@
     border-radius: 5px;
     display: inline-block;
 }
+/* Container for the image + button */
+.product-image-container {
+    display: flex;
+    flex-direction: column; /* stack the image on top, then button below */
+    align-items: center;    /* center them horizontally */
+    margin-bottom: 20px;    /* spacing below if needed */
+  }
+  
+  /* The wrapper around the Track Order button */
+  .track-button-wrapper {
 
+    display: flex;
+    justify-content: center; /* center the button horizontally */
+    width: 100%;            /* ensure it spans full width if you want perfect centering */
+  }
+  
+  .track-order-button {
+    padding: 8px 20px; 
+    border: 1px solid #C30EFF;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #C30EFF, #6900FD);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  
+  
+  .track-order-button:hover {
+    background-image: linear-gradient(90deg, #C30EFF50, #6900FD50);
+    color: #fff;
+  }
+  
 hr {
     width: 80%;           /* Adjust width to a percentage or fixed value (e.g., 500px) */
     height: 1px;          /* Adjust the thickness (height) */

@@ -110,18 +110,19 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
 
         case 'shipped':
             return "
-                <p>{$productName}</p>
-                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
-                    Your order is on its way and will be delivered soon.
-                </p>
-                <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
-                <div class='order-info order-arrival'>Estimated Arrival - <strong>{$arrivalDate}</strong></div>
-                <div class='order-info order-status'>Order Status - <strong>In Transit</strong></div>
-                <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
-                    {$refundButton}
-                    {$buyAgainButton}
-                </div>
-            ";
+                    <p>{$productName}</p>
+                    <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
+                        Your order is on its way and will be delivered soon.
+                    </p>
+                    <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
+                    <div class='order-info order-arrival'>Estimated Arrival - <strong>{$arrivalDate}</strong></div>
+                    <div class='order-info order-status'>Order Status - <strong>In Transit</strong></div>
+                    <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
+                        {$refundButton}
+                        {$buyAgainButton}
+                    </div>
+                ";
+
 
         case 'complete':
         case 'completed':
@@ -165,11 +166,11 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
                 : 'Missing pick up date';
             return "
                 <p>{$productName}</p>
+                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>Your return request is in progress. If you need further assistance, contact support.</p>
                 <div class='order-info order-status'>Order Status - <strong>Return</strong></div>
                 <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
                 <div class='order-info order-date'>Return Status - <strong>{$returnStatus}</strong></div>
                 <div class='order-info order-date'>Pick Up Date - <strong>{$pickUpDate}</strong></div>
-                <p>Your return request is in progress. If you need further assistance, contact support.</p>
                 <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
                     {$buyAgainButton}
                 </div>
@@ -348,9 +349,23 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
                 <!-- For non-cancelled statuses, you can keep your old code or a different layout -->
                 <!-- e.g. your existing "Processing/Shipped/Complete" layout -->
                 <div class="product">
-                    <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>"
-                        alt="Product Image"
-                        class="product-image">
+                    <div class="product-image-container">
+                        <img
+                            src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>"
+                            alt="Product Imagee"
+                            class="product-imagee" />
+
+                        <?php if (strtolower($order['order_status']) === 'shipped'): ?>
+                            <div class="track-button-wrapper">
+                                <form action="track-order.php" method="GET" style="display:inline;">
+                                    <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                    <button type="submit" class="order-action-buttonn track-order-button">
+                                        Track Order
+                                    </button>
+                                </form>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
                     <div class="product-details">
                         <?php
