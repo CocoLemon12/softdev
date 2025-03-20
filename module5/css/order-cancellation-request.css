@@ -227,22 +227,25 @@
     max-height: 90vh; 
     overflow-y: auto;
 }
-
 .popup-header {
+    position: relative;        /* Allows absolutely positioning the button */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
+    justify-content: center;   /* Center the h2 horizontally */
+    align-items: center;       /* Vertically center them */
+    padding: 10px;             /* Optional spacing */
+  }
+  /* The heading is naturally centered by justify-content: center; */
+.popup-header h2 {
+    margin: 0;                 /* Remove default h2 margin */
+  }
+/* Position the close icon on the left */
 .close-popup {
+    position: absolute;
+    left: 10px;                /* Adjust as needed */
+    font-size: 24px;           /* Example styling */
+    color: #7a1fa2;            /* Example color */
     cursor: pointer;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
+  }
 .close-popup:hover {
     color: red;
 }

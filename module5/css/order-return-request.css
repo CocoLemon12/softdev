@@ -208,12 +208,15 @@
    Upload Section
 ========================= */
 .upload-container {
+    max-width: 1300px;
+    margin: 0 auto; /* This centers the container horizontally */
     padding: 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-}
+  }
+  
 
 .upload-container p {
     margin-bottom: 20px;
@@ -292,6 +295,7 @@
 /* =========================
    Popup Modal Styles
 ========================= */
+/* Popup Styles */
 .popup {
     display: none;
     position: fixed;
@@ -305,28 +309,35 @@
     max-width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    /* For smaller screens, we may want to limit height */
+    max-height: 90vh; 
+    overflow-y: auto;
 }
 
 .popup-header {
+    position: relative;        /* Allows absolutely positioning the button */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
+    justify-content: center;   /* Center the h2 horizontally */
+    align-items: center;       /* Vertically center them */
+    padding: 10px;             /* Optional spacing */
+  }
+  /* The heading is naturally centered by justify-content: center; */
+.popup-header h2 {
+    margin: 0;                 /* Remove default h2 margin */
+  }
+/* Position the close icon on the left */
 .close-popup {
+    position: absolute;
+    left: 10px;                /* Adjust as needed */
+    font-size: 24px;           /* Example styling */
+    color: #7a1fa2;            /* Example color */
     cursor: pointer;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
+  }
 
 .close-popup:hover {
     color: red;
 }
 
-/* Reason Box */
 .reason-box {
     background: #f5e1fa;
     border-radius: 15px;
@@ -372,24 +383,27 @@
 .reason-box input[type="radio"]:checked + label {
     color: #BA43CE;
 }
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    /* Optional: add gap between buttons if needed */
+    gap: 10px;
+}
 
 .popup-buttons button {
     width: 100%;
-    background: linear-gradient(135deg, #800080, #b266ff);
+    max-width: 222px;
+    background: linear-gradient(90deg, #C30EFF, #6900FD);
     color: white;
     font-size: 16px;
     font-weight: bold;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 12px;
     cursor: pointer;
     margin-top: 15px;
+    /* Remove margin if you want the buttons to be flush with the container's right edge */
 }
-
-.popup-buttons button:hover {
-    background: linear-gradient(135deg, #b266ff, #800080);
-}
-
 /* =========================
    Responsive Breakpoints for Font Sizes
 ========================= */

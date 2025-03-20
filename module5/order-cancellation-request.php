@@ -79,9 +79,10 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : 'as
             <!-- Popup Modal -->
             <div class="popup" id="popup-form">
                 <div class="popup-header">
-                    <h2>Select a Reason</h2>
-                    <span class="close-popup" onclick="closePopup()">&times;</span>
+                    <span class="close-popup" onclick="closePopup()">&lt;</span>
+                    <h2>Cancellation Reason</h2>
                 </div>
+
                 <div class="reason-box">
                     <input type="radio" id="option1" name="cancel-reason" value="Duplicate Order">
                     <label for="option1">Duplicate Order</label>

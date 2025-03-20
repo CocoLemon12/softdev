@@ -83,8 +83,8 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : 'as
 
             <div class="popup" id="popup-form">
                 <div class="popup-header">
-                    <h2>Select a Reason</h2>
-                    <span class="close-popup" onclick="closePopup()">&times;</span>
+                    <span class="close-popup" onclick="closePopup()">&lt;</span>
+                    <h2>Return Reason</h2>
                 </div>
                 <div class="reason-box">
                     <?php
@@ -106,7 +106,7 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : 'as
                     ?>
                 </div>
                 <div class="popup-buttons">
-                    <button onclick="submitReason()">Confirm</button>
+                    <button onclick="submitReason()">Select</button>
                 </div>
             </div>
 
