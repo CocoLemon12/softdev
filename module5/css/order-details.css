@@ -135,13 +135,11 @@
     }
 }
 @media (max-width: 844px) {
-    .product-image{
+    .product-imagee{
         width: auto;
         max-height: 300px;
     }
 }
-
-
 
 /* =========================
    Product Details Section
