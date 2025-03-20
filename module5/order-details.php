@@ -49,9 +49,9 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : "..
 
 /**
  * Helper function to display user-friendly order details based on status,
- * with two buttons:
- *  1) Return/Refund (disabled unless order is 'Complete'/'Completed')
- *  2) Buy Again (redirects to ../module3/productdescription.php with product_id)
+ * with two buttons if it's a completed order:
+ *   1) Return/Refund (enabled only if status is 'complete'/'completed')
+ *   2) Buy Again
  */
 function displayOrderDetails($order, $cancellation = null, $return = null)
 {
@@ -66,55 +66,57 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
     $receivedDate = isset($order['received_date'])
         ? date('d M Y', strtotime($order['received_date']))
         : 'Missing received date data';
+
     $status       = strtolower($order['order_status']);
+    $isComplete   = ($status === 'complete' || $status === 'completed');
 
-    // Return/Refund enabled if status is 'complete'/'completed'
-    $isComplete = ($status === 'complete' || $status === 'completed');
+    // Return/Refund button
     $refundButton = $isComplete
-        ? "<form action='return-refund.php' method='POST' style='display:inline;'>
+        ? "<form action='order-return-request.php' method='POST' style='display:inline;'>
              <input type='hidden' name='order_id' value='{$order['order_id']}'>
-             <button type='submit' class='order-action-button'>Return/Refund</button>
+             <button type='submit' class='order-action-button return-refund-button'>Return/Refund</button>
            </form>"
-        : "<button class='order-action-button' disabled>Return/Refund</button>";
+        : "<button class='order-action-button return-refund-button' disabled>Return/Refund</button>";
 
-    // The "Buy Again" button always posts to productdescription.php
+    // Buy Again button
     $buyAgainButton = "
         <form action='../module3/productdescrption.php' method='POST' style='display:inline;'>
             <input type='hidden' name='product_id' value='{$order['product_id']}'>
-            <button type='submit' class='order-action-button'>Buy Again</button>
+            <button type='submit' class='order-action-button buy-again-button'>Buy Again</button>
         </form>
     ";
 
-    // Build the HTML for each status
     switch ($status) {
         case 'processing':
             return "
-    <p>{$productName}</p>
-    <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>We are currently processing your order.</p>
-            <div class='order-info order-date'>
-                Ordered Date - <strong>{$orderDate}</strong>
-            </div>
-            <div class='order-info order-arrival'>
-                Estimated Arrival -<strong>{$arrivalDate}</strong>
-            </div>
-            <div class='order-info order-status'>
-                Order Status - <strong>Processing</strong>
-            </div>
-            
-            <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
-            {$refundButton}
-        {$buyAgainButton}
-    </div>
-
+                <p>{$productName}</p>
+                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
+                    We are currently processing your order.
+                </p>
+                <div class='order-info order-date'>
+                    Ordered Date - <strong>{$orderDate}</strong>
+                </div>
+                <div class='order-info order-arrival'>
+                    Estimated Arrival - <strong>{$arrivalDate}</strong>
+                </div>
+                <div class='order-info order-status'>
+                    Order Status - <strong>Processing</strong>
+                </div>
+                <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
+                    {$refundButton}
+                    {$buyAgainButton}
+                </div>
             ";
 
         case 'shipped':
             return "
                 <p>{$productName}</p>
-                <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</div></strong>
-                <div class='order-info order-arrival'>Estimated Arrival - <strong>{$arrivalDate}</div></strong>
+                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
+                    Your order is on its way and will be delivered soon.
+                </p>
+                <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
+                <div class='order-info order-arrival'>Estimated Arrival - <strong>{$arrivalDate}</strong></div>
                 <div class='order-info order-status'>Order Status - <strong>In Transit</strong></div>
-                <p>Your order is on its way and will be delivered soon.</p>
                 <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
                     {$refundButton}
                     {$buyAgainButton}
@@ -125,31 +127,37 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
         case 'completed':
             return "
                 <p>{$productName}</p>
+                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
+                    Your order has been delivered successfully.
+                </p>
                 <div class='order-info order-arrival'>Delivered On - <strong>{$receivedDate}</strong></div>
                 <div class='order-info order-status'>Order Status - <strong>Delivered</strong></div>
                 <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
-                <p>Your order has been delivered successfully.</p>
                 <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
-                    {$refundButton} 
+                    {$refundButton}
                     {$buyAgainButton}
                 </div>
             ";
 
         case 'cancelled':
+            // Show the cancellation status if available
             $cancelStatus = $cancellation['cancel_status'] ?? 'Missing cancel status';
             $cancelStatus = htmlspecialchars($cancelStatus, ENT_QUOTES, 'UTF-8');
             return "
                 <p>{$productName}</p>
+                <p style='font-size:18px; color: purple; font-weight: 500; font-style: italic;'>
+                    Your order was cancelled. If you need further assistance, contact support.
+                </p>
                 <div class='order-info order-status'>Order Status - <strong>Cancelled</strong></div>
                 <div class='order-info order-date'>Ordered Date - <strong>{$orderDate}</strong></div>
                 <div class='order-info order-date'>Cancel Status - <strong>{$cancelStatus}</strong></div>
-                <p>Your order was cancelled. If you need further assistance, contact support.</p>
                 <div class='order-actions' style='display:flex; justify-content:flex-end; gap:10px;'>
                     {$buyAgainButton}
                 </div>
             ";
 
         case 'return':
+            // Show return info
             $returnStatus = $return['return_status'] ?? 'Missing return status';
             $returnStatus = htmlspecialchars($returnStatus, ENT_QUOTES, 'UTF-8');
             $pickUpDate   = isset($return['pick_up_date'])
@@ -196,68 +204,210 @@ function displayOrderDetails($order, $cancellation = null, $return = null)
 <body>
     <section class="section">
         <div class="content">
+
+            <?php
+            // Decide heading text based on status
+            $headingText = 'Order Details';
+            // If order exists and status is cancelled, change heading
+            if ($order && strtolower($order['order_status']) === 'cancelled') {
+                $headingText = 'Cancellation Details';
+            }
+            ?>
+
+            <!-- Top Heading -->
             <div class="orders-header">
                 <a href="javascript:history.back()" class="back-button">&lt;</a>
-                <h1>Order Details</h1>
+                <h1><?php echo $headingText; ?></h1>
             </div>
 
-            <div class="product">
-                <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>"
-                    alt="Product Image"
-                    class="product-image">
+            <!-- If Cancelled, show the purple banner "Cancellation in Process" -->
+            <?php if ($order && strtolower($order['order_status']) === 'cancelled'): ?>
+                <section class="section order-status-section">
+                    <div class="content order-status-content">
+                        <div class="order-status-text">
+                            <h2>Cancellation in Process</h2>
+                            <p>Your order has been successfully cancelled. We are now confirming the cancellation status with the seller.</p>
+                        </div>
+                        <!-- Example image on the right -->
+                        <img src="assets/delivered.png" alt="Order Delivered">
+                    </div>
+                </section>
+            <?php endif; ?>
 
-                <div class="product-details">
-                    <?php
-                    // Show order details if we have a valid status
-                    if (isset($order['order_status'])) {
-                        echo displayOrderDetails($order, $cancellation ?? null, $return ?? null);
-                    } else {
-                        echo "<p>Order details are not available.</p>";
-                    }
-                    ?>
+            <!-- If Cancelled, build the new "Cancellation" card structure -->
+            <?php if ($order && strtolower($order['order_status']) === 'cancelled'): ?>
+
+                <!-- Main Card Container -->
+                <div class="cancellation-card">
+                    <h2>Cancellation</h2> <!-- Title of the card -->
+
+                    <!-- Card Body: Image on left, product info on right -->
+                    <div class="cancellation-body">
+                        <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>"
+                            alt="Product Image" class="product-image">
+
+                        <div class="product-info">
+                            <!-- Product Name with an extended descriptive title -->
+                            <p class="product-name">
+                                <?php echo htmlspecialchars($order['product_name'] ?? 'Missing product name', ENT_QUOTES, 'UTF-8'); ?>
+                            </p>
+
+                            <!-- Return/Warranty badges -->
+                            <div class="return-warranty-container">
+                                <span class="return-warranty">5 days Free Return</span>
+                                <span class="return-warranty">7 days local supplier warranty</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cancellation Details: 
+                     - Quantity
+                     - Date (pick whichever date you consider the 'cancellation date')
+                     - Cancelled by (e.g., "Buyer")
+                     - Reason (the cancel_status from your DB)
+                -->
+                    <div class="cancellation-details">
+                        <h3>Cancellation Details</h3>
+                        <div class="details-grid">
+                            <!-- Quantity -->
+                            <div class="detail-label">Quantity</div>
+                            <div class="detail-value" style="font-weight: bold;"><?php echo (int)($order['order_quantity'] ?? 0); ?></div>
+
+                            <!-- Cancellation Date -->
+                            <div class="detail-label">Cancellation Date</div>
+                            <div class="detail-value" style="font-weight: bold;"><?php echo date('d M Y'); ?></div>
+
+                            <!-- Cancelled By (Hardcode "Buyer" or derive from logic) -->
+                            <div class="detail-label">Cancelled By</div>
+                            <div class="detail-value" style="font-weight: bold;">Buyer</div>
+
+                            <!-- Reason from $cancellation['cancel_status'] -->
+                            <div class="detail-label">Reason</div>
+                            <div class="detail-value" style="font-weight: bold;">
+                                <?php
+                                $cancelStatus = $cancellation['cancel_status'] ?? 'No reason found';
+                                echo htmlspecialchars($cancelStatus, ENT_QUOTES, 'UTF-8');
+                                ?>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- End .cancellation-card -->
+
+                <!-- Bottom Info (Order ID, Shipping Address, Payment Method, etc.) -->
+                <div class="order-details">
+                    <div class="order-info-grid">
+                        <div class="order-data">
+                            <strong>Order ID:</strong>
+                            <?php echo htmlspecialchars($order['order_id'] ?? 'Missing order ID', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Shipping Address:</strong>
+                            <?php echo htmlspecialchars($order['address'] ?? 'Missing address', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Payment Method:</strong>
+                            <?php echo htmlspecialchars($order['payment_method'] ?? 'Missing payment method', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Contact Number:</strong>
+                            <?php echo htmlspecialchars($order['phone'] ?? 'Missing contact number', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Product Name:</strong>
+                            <?php echo htmlspecialchars($order['product_name'] ?? 'Missing product name', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                    </div>
+
+                    <!-- Price/Qty/Shipping/Total in a smaller grid on the right or below -->
+                    <div class="order-calculations">
+                        <div class="order-data"><strong>Price:</strong></div>
+                        <span class="calculation">₱<?php echo htmlspecialchars($order['product_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Quantity:</strong></div>
+                        <span class="calculation">x <?php echo htmlspecialchars($order['order_quantity'] ?? '0', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Shipping:</strong></div>
+                        <span class="calculation">+ ₱<?php echo htmlspecialchars($order['shipping_fee'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Total:</strong></div>
+                        <span class="calculation total-row">₱<?php echo htmlspecialchars($order['total_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="order-details">
-                <div class="order-info-grid">
-                    <div class="order-data">
-                        <strong>Order ID:</strong>
-                        <?php echo htmlspecialchars($order['order_id'] ?? 'Missing order ID', ENT_QUOTES, 'UTF-8'); ?>
-                    </div>
-                    <div class="order-data">
-                        <strong>Shipping Address:</strong>
-                        <?php echo htmlspecialchars($order['address'] ?? 'Missing address', ENT_QUOTES, 'UTF-8'); ?>
-                    </div>
-                    <div class="order-data">
-                        <strong>Payment Method:</strong>
-                        <?php echo htmlspecialchars($order['payment_method'] ?? 'Missing payment method', ENT_QUOTES, 'UTF-8'); ?>
-                    </div>
-                    <div class="order-data">
-                        <strong>Contact Number:</strong>
-                        <?php echo htmlspecialchars($order['phone'] ?? 'Missing contact number', ENT_QUOTES, 'UTF-8'); ?>
-                    </div>
-                    <div class="order-data">
-                        <strong>Product Name:</strong>
-                        <?php echo htmlspecialchars($order['product_name'] ?? 'Missing product name', ENT_QUOTES, 'UTF-8'); ?>
-                    </div>
+
+                <!-- Example: "Buy Again" button at the bottom (optional) -->
+                <div class="buy-again-container" style="text-align: right; margin-top: 20px;">
+                    <form action="../module3/productdescrption.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="product_id" value="<?php echo $order['product_id']; ?>">
+                        <button type="submit" class="order-action-button buy-again-button">Buy Again</button>
+                    </form>
                 </div>
 
-                <div class="order-calculations">
-                    <div class="order-data"><strong>Price:</strong></div>
-                    <span class="calculation">₱<?php echo htmlspecialchars($order['product_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+            <?php else: ?>
+                <!-- For non-cancelled statuses, you can keep your old code or a different layout -->
+                <!-- e.g. your existing "Processing/Shipped/Complete" layout -->
+                <div class="product">
+                    <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>"
+                        alt="Product Image"
+                        class="product-image">
 
-                    <div class="order-data"><strong>Quantity:</strong></div>
-                    <span class="calculation">x <?php echo htmlspecialchars($order['order_quantity'] ?? '0', ENT_QUOTES, 'UTF-8'); ?></span>
-
-                    <div class="order-data"><strong>Shipping:</strong></div>
-                    <span class="calculation">+ ₱<?php echo htmlspecialchars($order['shipping_fee'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
-
-                    <div class="order-data"><strong>Total:</strong></div>
-                    <span class="calculation total-row">₱<?php echo htmlspecialchars($order['total_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+                    <div class="product-details">
+                        <?php
+                        // Show order details if we have a valid status
+                        if (isset($order['order_status'])) {
+                            echo displayOrderDetails($order, $cancellation ?? null, $return ?? null);
+                        } else {
+                            echo "<p>Order details are not available.</p>";
+                        }
+                        ?>
+                    </div>
                 </div>
-            </div>
+                <div class="order-details">
+                    <div class="order-info-grid">
+                        <div class="order-data">
+                            <strong>Order ID:</strong>
+                            <?php echo htmlspecialchars($order['order_id'] ?? 'Missing order ID', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Shipping Address:</strong>
+                            <?php echo htmlspecialchars($order['address'] ?? 'Missing address', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Payment Method:</strong>
+                            <?php echo htmlspecialchars($order['payment_method'] ?? 'Missing payment method', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Contact Number:</strong>
+                            <?php echo htmlspecialchars($order['phone'] ?? 'Missing contact number', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="order-data">
+                            <strong>Product Name:</strong>
+                            <?php echo htmlspecialchars($order['product_name'] ?? 'Missing product name', ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                    </div>
+
+                    <div class="order-calculations">
+                        <div class="order-data"><strong>Price:</strong></div>
+                        <span class="calculation">₱<?php echo htmlspecialchars($order['product_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Quantity:</strong></div>
+                        <span class="calculation">x <?php echo htmlspecialchars($order['order_quantity'] ?? '0', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Shipping:</strong></div>
+                        <span class="calculation">+ ₱<?php echo htmlspecialchars($order['shipping_fee'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+
+                        <div class="order-data"><strong>Total:</strong></div>
+                        <span class="calculation total-row">₱<?php echo htmlspecialchars($order['total_price'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?></span>
+                    </div>
+                </div>
         </div>
     </section>
+<?php endif; ?>
+
+</div>
+</section>
+
 </body>
 
 </html>

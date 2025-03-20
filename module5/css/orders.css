@@ -110,6 +110,8 @@
 /* =========================
    Order Header Styles
 ========================= */
+
+
 .order-header {
     display: flex;
     justify-content: space-between;
@@ -269,6 +271,26 @@
     background-image: linear-gradient(90deg, #c30eff10, #6900FD10);
     color: black;
 }
+/* Style for the 'Return' button */
+.return-order-button {
+    background-image: none; /* Set the initial background color */
+    color: #00000050; /* Text color */
+    border: 1px solid #00000050; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 16px; /* Font size */
+    font-weight: 500; /* Font weight */
+    cursor: pointer; /* Cursor pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for the 'Return' button */
+.return-order-button:hover {
+    background-image: linear-gradient(90deg, white, white);
+    border-color: #000000; /* Change border color on hover */
+}
+
+
 
 /* =========================
    Status Icons & Top Section

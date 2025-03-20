@@ -59,43 +59,52 @@
 }
 
 .price {
-    position: relative;
-    margin-bottom: 20px; 
-}
-
-/* Price at the top-left (normal flow) */
-.price-amount {
-    margin-bottom: 10px;
-    font-size: 2rem; /* Default on larger screens */
-}
-
-/* Quantity pinned to the bottom-right corner */
-.quantity {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-/* Peso and price-value styling */
-.peso {
+    /* Remove position: relative; */
+    /* Remove margin-bottom if you don't need extra spacing */
+    display: flex;
+    justify-content: space-between; /* Place price on left, quantity on right */
+    align-items: baseline;         /* Align them along their text baseline */
+    margin-bottom: 20px;
+  }
+  
+  .price-amount {
+    display: flex;        /* So the peso sign and price value can line up */
+    align-items: baseline;/* Align them on the same baseline */
+    font-size: 2rem;      /* Or your preferred size */
+    margin: 0;            /* Remove extra margins if needed */
+  }
+  
+  .quantity {
+    display: flex;        /* So label and value can line up */
+    align-items: baseline;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Optional styling for the peso and numeric price */
+  .peso {
     font-size: 40px;
     font-weight: 400;
-}
-.price-value {
+    margin-right: 5px; /* Gap after the peso sign */
+  }
+  
+  .price-value {
     font-size: 40px;
     font-weight: 700;
-}
-
-/* Quantity labels */
-.qty-label {
+  }
+  
+  /* Optional styling for quantity label and value */
+  .qty-label {
     font-size: 16px;
     font-weight: 500;
     margin-right: 5px;
-}
-.qty-value {
+  }
+  
+  .qty-value {
     font-size: 16px;
     font-weight: bold;
-}
+  }
+  
 
 /* Responsive adjustments for small screens */
 @media (max-width: 600px) {
@@ -283,22 +292,31 @@
 .reason-box input[type="radio"]:checked + label {
     color: #BA43CE;
 }
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    /* Optional: add gap between buttons if needed */
+    gap: 10px;
+}
 
 .popup-buttons button {
     width: 100%;
-    background: linear-gradient(135deg, #800080, #b266ff);
+    max-width: 222px;
+    background: linear-gradient(90deg, #C30EFF, #6900FD);
     color: white;
     font-size: 16px;
     font-weight: bold;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 12px;
     cursor: pointer;
     margin-top: 15px;
+    /* Remove margin if you want the buttons to be flush with the container's right edge */
 }
 
+
 .popup-buttons button:hover {
-    background: linear-gradient(135deg, #b266ff, #800080);
+    background: linear-gradient(90deg, #C30EFF45, #6900FD45);
 }
 
 @media (min-width: 1250px) {

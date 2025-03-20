@@ -32,7 +32,7 @@ $total_pages = ceil($total_orders / $limit);
 $stmt->close();
 
 // 2. Fetch orders for the user with pagination & status filter
-$query = "SELECT tbl_orders.*, products.product_name, products.product_images 
+$query = "SELECT tbl_orders.*, products.product_name, products.product_images
           FROM tbl_orders
           JOIN products ON tbl_orders.product_id = products.product_id
           WHERE tbl_orders.user_id = ? ";
@@ -45,7 +45,7 @@ if ($status_filter !== 'all' && $status_filter !== 'order history') {
     $query .= "AND LOWER(tbl_orders.order_status) IN ('complete', 'cancelled', 'return') ";
 }
 
-$query .= "ORDER BY COALESCE(tbl_orders.received_date, tbl_orders.date_ordered) DESC 
+$query .= "ORDER BY COALESCE(tbl_orders.received_date, tbl_orders.date_ordered) DESC
            LIMIT ? OFFSET ?";
 
 $stmt = $conn->prepare($query);
@@ -121,6 +121,7 @@ function getOrderActions($order)
 
     switch ($status) {
         case 'processing':
+            // Processing: View Details + Cancel
             $actions .= '<form action="order-details.php" method="POST" style="display:inline;">
                             <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
                             <button type="submit" class="order-action-button view-details-button">View Details</button>
@@ -132,41 +133,58 @@ function getOrderActions($order)
             break;
 
         case 'shipped':
+            // Shipped: View Details + Mark Received
             $actions .= '<form action="order-details.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
-                                <button type="submit" class="order-action-button view-details-button">View Details</button>
-                             </form>';
-            $actions .= '<form action="order-complete.php" method="POST" style="display:inline;">
+                            <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
+                            <button type="submit" class="order-action-button view-details-button">View Details</button>
+                         </form>';
+            $actions .= '<form action="mark-order-complete.php" method="POST" style="display:inline;">
                              <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
-                             <button type="submit" class="order-action-button receive-order-button" style="width:auto;">Order Received</button>
-                          </form>';
+                             <button type="submit" class="order-action-button receive-order-button" style="width:auto;">
+                                 Order Received
+                             </button>
+                         </form>';
             break;
 
         case 'complete':
         case 'completed':
-            // Return, View Details, and To Review buttons for completed orders
+            // Completed: Return/Refund (if within window), View Details, and "To Review" => modal
             $expirationTime = strtotime($order['received_date'] . ' + ' . $order['expiration_return_date'] . ' days');
             if ($expirationTime > time()) {
                 $actions .= '<form action="order-return-request.php" method="POST" style="display:inline;">
                                 <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
-                                <button type="submit" class="order-action-button return-order-button">Return</button>
+                                <button type="submit" class="order-action-button return-order-button">Return/Refund</button>
                              </form>';
             } else {
                 $actions .= '<button class="order-action-button return-order-button" disabled>Return Expired</button>';
             }
 
+            // View Details
             $actions .= '<form action="order-details.php" method="POST" style="display:inline;">
                             <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
                             <button type="submit" class="order-action-button view-details-button">View Details</button>
                          </form>';
-            $actions .= '<form action="order-review.php" method="POST" style="display:inline;">
-                            <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
-                            <button type="submit" class="order-action-button to-review-button">To Review</button>
-                         </form>';
+
+            // "To Review" => Open a modal, pass product name & image as data attributes
+            // We'll escape the product_name and image for JS use.
+            $escapedName  = htmlspecialchars($order['product_name'], ENT_QUOTES, 'UTF-8');
+            // Decode the product image
+            $productImages = json_decode($order['product_images'], true);
+            $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : "../module5/assets/default-product.png";
+            $escapedImg   = htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8');
+
+            $actions .= '<button type="button"
+                                class="order-action-button to-review-button"
+                                data-order-id="' . $order['order_id'] . '"
+                                data-product-name="' . $escapedName . '"
+                                data-product-img="' . $escapedImg . '"
+                                onclick="openReviewModal(this)">
+                            To Review
+                         </button>';
             break;
 
         case 'cancelled':
-            // View Details button for cancelled orders
+            // Cancelled: just View Details
             $actions .= '<form action="order-details.php" method="POST" style="display:inline;">
                             <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
                             <button type="submit" class="order-action-button view-details-button">View Details</button>
@@ -174,7 +192,7 @@ function getOrderActions($order)
             break;
 
         case 'return':
-            // View Details button for return orders
+            // Return: just View Details
             $actions .= '<form action="order-details.php" method="POST" style="display:inline;">
                             <input type="hidden" name="order_id" value="' . $order['order_id'] . '">
                             <button type="submit" class="order-action-button view-details-button">View Details</button>
@@ -188,9 +206,7 @@ function getOrderActions($order)
 
     return $actions;
 }
-
 ?>
-
 <!-- Output the orders (no extra container) -->
 <?php if (empty($orders)): ?>
     <div class="no-orders">
@@ -198,23 +214,29 @@ function getOrderActions($order)
         <p>No orders data can be found</p>
         <button onclick="window.location.href='../module3/'" class="order-actions-button">Continue Shopping</button>
     </div>
-
 <?php else: ?>
     <?php foreach ($orders as $order): ?>
         <div class="order-container">
             <div class="above">
                 <p>
                     <img src="<?php echo getStatusImage($order['order_status']); ?>" alt="Status Icon">
-                    <?php echo htmlspecialchars(getDisplayStatus($order['order_status'])); ?>
+
+                    <?php if (strtolower($order['order_status']) === 'shipped'): ?>
+                        In transit - Estimated Delivery by
+                        <strong><?php echo date('d M Y', strtotime($order['order_arrival'])); ?></strong>
+                    <?php else: ?>
+                        <?php echo htmlspecialchars(getDisplayStatus($order['order_status'])); ?>
+                    <?php endif; ?>
                 </p>
                 <p>
-                    Date Ordered: <?php echo date('d M Y', strtotime($order['received_date'] ?? $order['date_ordered'])); ?>
+                    Date Ordered:
+                    <strong><?php echo date('d M Y', strtotime($order['received_date'] ?? $order['date_ordered'])); ?></strong>
                 </p>
-
             </div>
 
             <div class="product">
                 <?php
+                // decode product image
                 $productImages = json_decode($order['product_images'], true);
                 $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : "../module5/assets/default-product.png";
                 ?>
@@ -250,6 +272,7 @@ function getOrderActions($order)
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
+
 <div class="pagination">
     <!-- Previous page link -->
     <?php if ($page > 1): ?>
@@ -272,3 +295,127 @@ function getOrderActions($order)
         <span class="next disabled">Next</span>
     <?php endif; ?>
 </div>
+
+<!-- (B) Modal HTML Markup -->
+<div id="reviewModalOverlay" onclick="closeReviewModal()"></div>
+<div id="reviewModal">
+    <div class="review-modal-header">
+        <span class="review-modal-close" onclick="closeReviewModal()">&lt;</span>
+        <h2>Write Review</h2>
+    </div>
+
+    <!-- Product info will be updated dynamically -->
+    <div class="review-product-info">
+        <img id="reviewProductImage" src="assets/default-product.png" alt="Product" class="review-product-img">
+        <p id="reviewProductName"></p>
+    </div>
+
+    <!-- Rating row container -->
+    <div class="review-stars-row">
+        <!-- Label on the left -->
+        <span class="rating-label">General Rating:</span>
+
+        <!-- Star container on the right -->
+        <div class="review-stars">
+            <span class="star" data-value="1" onmouseover="hoverStars(1)" onmouseout="resetStars()" onclick="setStarRating(1)">&#9733;</span>
+            <span class="star" data-value="2" onmouseover="hoverStars(2)" onmouseout="resetStars()" onclick="setStarRating(2)">&#9733;</span>
+            <span class="star" data-value="3" onmouseover="hoverStars(3)" onmouseout="resetStars()" onclick="setStarRating(3)">&#9733;</span>
+            <span class="star" data-value="4" onmouseover="hoverStars(4)" onmouseout="resetStars()" onclick="setStarRating(4)">&#9733;</span>
+            <span class="star" data-value="5" onmouseover="hoverStars(5)" onmouseout="resetStars()" onclick="setStarRating(5)">&#9733;</span>
+        </div>
+    </div>
+
+
+    <!-- Hidden fields to store rating or order ID -->
+    <input type="hidden" id="reviewOrderId" value="">
+    <input type="hidden" id="reviewRating" value="0">
+
+    <!-- Textarea for user feedback -->
+    <label for="reviewText" style="display:block; margin-top:10px; font-size: 20px; font-weight: 500;">Write Review</label>
+    <textarea id="reviewText" rows="4" style="width:100%; min-height: 340px;" placeholder="Your feedback is invaluable to us! Kindly write your feedback below."></textarea>
+
+
+    <!-- Submit button -->
+    <div class="review-submit-container">
+        <button class="review-submit-btn" onclick="submitReview()">Submit</button>
+    </div>
+</div>
+
+<!-- (C) JavaScript to open/close modal, set star rating, etc. -->
+<script>
+    function openReviewModal(button) {
+        // 'button' is the DOM element with data attributes
+        const orderId = button.getAttribute('data-order-id');
+        const productName = button.getAttribute('data-product-name');
+        const productImage = button.getAttribute('data-product-img');
+
+        // Show overlay & modal
+        document.getElementById('reviewModalOverlay').style.display = 'block';
+        document.getElementById('reviewModal').style.display = 'block';
+
+        // Store orderId in hidden field
+        document.getElementById('reviewOrderId').value = orderId;
+
+        // Reset rating & text
+        document.getElementById('reviewRating').value = 0;
+        document.getElementById('reviewText').value = '';
+
+        // Clear star selection
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => star.classList.remove('selected'));
+
+        // Populate product name & image
+        document.getElementById('reviewProductName').textContent = productName;
+        document.getElementById('reviewProductImage').src = productImage;
+    }
+
+    function closeReviewModal() {
+        document.getElementById('reviewModalOverlay').style.display = 'none';
+        document.getElementById('reviewModal').style.display = 'none';
+    }
+
+    function setStarRating(value) {
+        document.getElementById('reviewRating').value = value;
+        // highlight stars
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            const starValue = parseInt(star.getAttribute('data-value'), 10);
+            if (starValue <= value) {
+                star.classList.add('selected');
+            } else {
+                star.classList.remove('selected');
+            }
+        });
+    }
+
+    function submitReview() {
+        const orderId = document.getElementById('reviewOrderId').value;
+        const rating = document.getElementById('reviewRating').value;
+        const text = document.getElementById('reviewText').value.trim();
+
+        // For now, just close modal & alert
+        closeReviewModal();
+        alert("Review submitted for Order ID " + orderId +
+            "\nRating: " + rating +
+            "\nComment: " + text);
+
+        // If you want to do an AJAX call to store in DB, do it here
+        // e.g., fetch('save-review.php', { ... })
+    }
+
+    function hoverStars(value) {
+        const stars = document.querySelectorAll('.review-stars .star');
+        stars.forEach(star => {
+            if (parseInt(star.getAttribute('data-value'), 10) <= value) {
+                star.classList.add('hovered');
+            } else {
+                star.classList.remove('hovered');
+            }
+        });
+    }
+
+    function resetStars() {
+        const stars = document.querySelectorAll('.review-stars .star');
+        stars.forEach(star => star.classList.remove('hovered'));
+    }
+</script>

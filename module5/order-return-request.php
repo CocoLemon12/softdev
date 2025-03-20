@@ -43,23 +43,43 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : 'as
                 <h1>Return Request</h1>
             </div>
             <div class="container product-container">
-                <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>" class="product-image">
+                <img src="<?php echo htmlspecialchars($firstImage, ENT_QUOTES, 'UTF-8'); ?>" alt="Product" class="product-image">
                 <div class="product-details">
                     <p><?php echo isset($order['product_name']) ? htmlspecialchars($order['product_name'], ENT_QUOTES, 'UTF-8') : 'Product Name'; ?></p>
+                    <div class="return-warranty-container">
+                        <span class="return-warranty">5 days Free Return</span>
+                        <span class="return-warranty">7 days local supplier warranty</span>
+                    </div>
                     <div class="price">
-                        <p><span>₱<?php echo isset($order['total_price']) ? htmlspecialchars($order['total_price'], ENT_QUOTES, 'UTF-8') : '0.00'; ?></span></p>
-                        <p>Qty: <?php echo isset($order['order_quantity']) ? htmlspecialchars($order['order_quantity'], ENT_QUOTES, 'UTF-8') : '0'; ?></p>
+                        <!-- Price container -->
+                        <div class="price-amount">
+                            <span class="peso">₱</span>
+                            <span class="price-value">
+                                <?php echo isset($order['total_price']) ? htmlspecialchars($order['total_price'], ENT_QUOTES, 'UTF-8') : '0.00'; ?>
+                            </span>
+                        </div>
+
+                        <!-- Quantity container -->
+                        <div class="quantity">
+                            <span class="qty-label">Qty:</span>
+                            <span class="qty-value">
+                                <?php echo isset($order['order_quantity']) ? htmlspecialchars($order['order_quantity'], ENT_QUOTES, 'UTF-8') : '0'; ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="container return-reason-container">
-                <p>Return Reason</p>
-                <div class="return-reason-button" onclick="openPopup()">
+
+            <div class="return-reason-container">
+                <p class="return-reason-label">Return reason</p>
+                <div class="return-reason-right" onclick="openPopup()">
                     <p id="selected-reason">Please Select</p>
-                    <p><span>></span></p>
+                    <span class="arrow">&gt;</span>
                 </div>
             </div>
+
+
 
             <div class="popup" id="popup-form">
                 <div class="popup-header">

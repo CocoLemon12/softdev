@@ -114,7 +114,7 @@ $firstImage = isset($productImages[0]) ? "../module3/" . $productImages[0] : 'as
                     <label for="option10">Others (please give an explanation below)</label>
                 </div>
                 <div class="popup-buttons">
-                    <button type="button" onclick="submitReason()">Confirm</button>
+                    <button type="button" onclick="submitReason()">Select</button>
                 </div>
             </div>
 

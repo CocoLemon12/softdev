@@ -1,3 +1,6 @@
+/* =========================
+   Base Container & Header
+========================= */
 .container {
     display: flex;
     background: white;
@@ -8,7 +11,37 @@
     margin: 15px auto;
 }
 
-/* Product Details */
+/* Header with back button + centered title */
+.orders-header {
+    position: relative;       /* Allows absolutely positioning the back button */
+    width: 100%;
+    text-align: center;       /* Center the <h1> horizontally */
+    margin-bottom: 20px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.orders-header h1 {
+    display: inline-block;    /* Ensures text-align:center truly centers it */
+    margin: 0 auto;           /* Center horizontally */
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.back-button {
+    position: absolute;
+    left: 0;                  /* Pin to left edge */
+    top: 50%;                 /* Vertically center */
+    transform: translateY(-50%);
+    font-size: 30px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #5D2167;
+}
+
+/* =========================
+   Product Details Section
+========================= */
 .product-details {
     display: flex;
     flex-direction: column;
@@ -27,45 +60,120 @@
     flex-grow: 1;
     font-size: 32px;
     font-weight: 500;
-    text-wrap: wrap;
+    overflow-wrap: break-word;
 }
 
+/* =========================
+   Price & Quantity Section
+========================= */
 .price {
+    /* Remove position: relative; */
+    /* Remove margin-bottom if you don't need extra spacing */
+    display: flex;
+    justify-content: space-between; /* Place price on left, quantity on right */
+    align-items: baseline;         /* Align them along their text baseline */
+    margin-bottom: 20px;
+  }
+  
+  .price-amount {
+    display: flex;        /* So the peso sign and price value can line up */
+    align-items: baseline;/* Align them on the same baseline */
+    font-size: 2rem;      /* Or your preferred size */
+    margin: 0;            /* Remove extra margins if needed */
+  }
+  
+  .quantity {
+    display: flex;        /* So label and value can line up */
+    align-items: baseline;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Optional styling for the peso and numeric price */
+  .peso {
+    font-size: 40px;
+    font-weight: 400;
+    margin-right: 5px; /* Gap after the peso sign */
+  }
+  
+  .price-value {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  
+  /* Optional styling for quantity label and value */
+  .qty-label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 5px;
+  }
+  
+  .qty-value {
+    font-size: 16px;
+    font-weight: bold;
+  }
+/* Responsive adjustments for Price & Quantity */
+@media (max-width: 600px) {
+    .price {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .price-amount {
+        font-size: 1.5rem;
+    }
+    .peso {
+        font-size: 28px;
+    }
+    .price-value {
+        font-size: 28px;
+    }
+    .quantity {
+        position: static;
+        margin-top: 8px;
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   Return & Warranty Section
+========================= */
+.return-warranty {
+    background-color: #C30EFF26;
+    color: #BA43CE;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* =========================
+   Cancellation Reason & Explanation
+========================= */
+.cancel-reason-container {
     display: flex;
     justify-content: space-between;
 }
 
-.price p {
-    font-size: 24px;
-    color: black;
-}
-
-.price p:last-child {
-    text-align: right;
-}
-
-/* Return Reason Container */
-.return-reason-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.return-reason-button {
+.cancel-reason-button {
     display: flex;
     cursor: pointer;
 }
 
-.return-reason-container p {
+.cancel-reason-container p {
     align-self: center;
 }
 
-.return-reason-button p span {
+.cancel-reason-button p span {
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 300;
     color: #5d2167;
+    padding-left: 5px;
 }
 
-/* Detailed Explanation */
 .explanation-container {
     display: flex;
     flex-direction: column;
@@ -96,7 +204,9 @@
     font-family: inherit;
 }
 
-/* Upload Section */
+/* =========================
+   Upload Section
+========================= */
 .upload-container {
     padding: 20px;
     background: white;
@@ -120,7 +230,6 @@
     justify-content: center;
     text-align: center;
     cursor: pointer;
-    color: #5D2167;
     font-size: 18px;
     background: white;
     color: black;
@@ -135,15 +244,10 @@
     border-radius: 10px;
     margin-top: 10px;
 }
-@media (min-width: 800px) {
-    .section{
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-    
-}
 
-/* Replace Button */
+/* =========================
+   Replace & Submit Buttons
+========================= */
 .replace-button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -159,7 +263,6 @@
     background-color: #BA43CE;
 }
 
-/* Submit Button */
 .submit-return-btn {
     display: flex;
     justify-content: end;
@@ -169,16 +272,26 @@
     width: 100%;
     max-width: 400px;
     padding: 15px;
-    background: linear-gradient(135deg, #5D2167, #BA43CE);
+    background-image: linear-gradient(90deg, #C30EFF, #6900FD);
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
+    transition: background-image 0.3s, color 0.3s, border 0.3s;
 }
 
-/* Popup Styles */
+.submit-return-btn button:hover {
+    background-image: linear-gradient(90deg, #C30EFF50, #6900FD50);
+    color: black;
+    border: 1px solid #C30EFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   Popup Modal Styles
+========================= */
 .popup {
     display: none;
     position: fixed;
@@ -277,26 +390,162 @@
     background: linear-gradient(135deg, #b266ff, #800080);
 }
 
-@media (max-width: 1250px) {
-    .product-container {
-        flex-direction: column;
-        overflow-x: hidden;
+/* =========================
+   Responsive Breakpoints for Font Sizes
+========================= */
+/* Large screens (min-width: 1250px) */
+@media (min-width: 1250px) {
+    .content {
+        padding: 0 100px;
+    }
+    .orders-header h1 {
+        font-size: 40px;
+    }
+    .back-button {
+        font-size: 60px;
     }
 }
 
-@media (max-width: 700px) {
-    .product-container {
-        flex-direction: column;
-        overflow-x: hidden;
+/* Slightly smaller screens (max-width: 1000px) */
+@media (max-width: 1000px) {
+    .orders-header h1 {
+        font-size: 32px;
+    }
+    .back-button {
+        font-size: 50px;
+    }
+    .product-details p {
+        font-size: 28px;
+    }
+    .price p {
+        font-size: 20px;
+    }
+    .return-reason-button p span {
+        font-size: 32px;
     }
 }
 
+/* Tablet screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .orders-header h1 {
+        font-size: 24px;
+    }
+    .back-button {
+        font-size: 40px;
+    }
+    .product-details p {
+        font-size: 24px;
+    }
+    .price p {
+        font-size: 18px;
+    }
+    .return-reason-button p span {
+        font-size: 28px;
+    }
+}
+
+/* Very small screens (max-width: 500px) */
 @media (max-width: 500px) {
+    .orders-header h1 {
+        font-size: 20px;
+    }
+    .back-button {
+        font-size: 30px;
+    }
+    .product-details p {
+        font-size: 20px;
+    }
+    .price p {
+        font-size: 16px;
+    }
+    .return-reason-button p span {
+        font-size: 24px;
+    }
     .popup {
         padding: 10px;
     }
-
     .reason-box label {
         padding: 2px;
+    }
+}
+
+/* Very small screens (up to 400px) */
+@media (max-width: 400px) {
+    .product-container {
+      flex-direction: column; 
+      align-items: center;
+    }
+    .product-image {
+      max-width: 120px;
+      max-height: 120px;
+      margin: 0 auto 1rem;
+    }
+    .product-details p {
+      font-size: 18px;
+    }
+    .return-warranty {
+      font-size: 14px;
+      padding: 3px 6px;
+    }
+    .orders-header h1 {
+      font-size: 20px;
+    }
+    .back-button {
+      font-size: 24px;
+    }
+}
+
+/* =========================
+   Return-Reason Container (New Style)
+========================= */
+.return-reason-container {
+    display: flex;               /* Place label and clickable area side-by-side */
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd; /* Optional divider */
+    padding: 10px 0;
+    margin-bottom: 1rem;
+    background: white;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1300px;
+    margin: 15px auto;
+}
+
+.return-reason-label {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+.return-reason-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#selected-reason {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.arrow {
+    font-size: 40px;
+    color: #5D2167;
+    font-weight: 300;
+}
+
+/* For very small screens, stack vertically */
+@media (max-width: 500px) {
+    .return-reason-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .return-reason-right {
+        margin-top: 8px;
     }
 }
